@@ -21,6 +21,7 @@ export function txtareaSelectionStart(dom, method){
      * 方法
      * @param {*} bold：加粗 
      * @param {*} italic：倾斜 
+     * @param {*} H1：主题1 
      * @returns 
      */
     const bold = function(value) {
@@ -29,6 +30,24 @@ export function txtareaSelectionStart(dom, method){
     const italic = function(value) {
         return value ? `*${value}*` : '*倾斜文本*'
     }
+    const H1 = function(value) {
+        return value ? `# ${value}` : '# 主题1'
+    }
+    const H2 = function(value) {
+        return value ? `## ${value}` : '## 主题2'
+    }
+    const H3 = function(value) {
+        return value ? `### ${value}` : '### 主题3'
+    }
+    const H4 = function(value) {
+        return value ? `##### ${value}` : '##### 主题4'
+    }
+    const H5 = function(value) {
+        return value ? `###### ${value}` : '###### 主题5'
+    }
+    const H6 = function(value) {
+        return value ? `####### ${value}` : '####### 主题6'
+    }
     // 获取返回的值
     switch(method) {
         case 'bold':
@@ -36,6 +55,24 @@ export function txtareaSelectionStart(dom, method){
             break;
         case 'italic':
             vas = italic(sel)
+            break;
+        case 'H1' :
+            vas = H1(sel)
+            break;
+        case 'H2' :
+            vas = H2(sel)
+            break;
+        case 'H3' :
+            vas = H3(sel)
+            break;
+        case 'H4' :
+            vas = H4(sel)
+            break;
+        case 'H5' :
+            vas = H5(sel)
+            break;
+        case 'H6' :
+            vas = H6(sel)
             break;
     }
     //构造新文本
