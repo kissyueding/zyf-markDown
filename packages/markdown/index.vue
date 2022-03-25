@@ -2,14 +2,14 @@
   <div class="markdown-content">
     <div class="tab" v-if="toolbarsValue.tabBar && !readonly">
       <p @click="fontWeightFunction('bold')" class="a-01" v-if="toolbarsValue.bold">
-        <img src="../../assets/icon_bold.png" alt="加粗" />
+        <img src="./img/icon_bold.png" alt="加粗" />
       </p>
       <p @click="fontWeightFunction('italic')" class="a-01" v-if="toolbarsValue.italic">
-        <img src="../../assets/icon_italic.png" alt="倾斜" />
+        <img src="./img/icon_italic.png" alt="倾斜" />
       </p>
       <div class="a-02" v-if="toolbarsValue.useH">
         <p class="a-01 aa-01" @click="getOpnHeaderLi">
-          <img src="../../assets/icon_header.png" alt="主题" />
+          <img src="./img/icon_header.png" alt="主题" />
         </p>
         <div class="aa-02" v-if="showHeaderLi">
           <template v-for="(item, index) in headerList">
@@ -21,7 +21,7 @@
       </div>
       <div class="a-03" v-if="toolbarsValue.table">
         <p class="a-01 aa-01" @click="getOpnTable">
-          <img src="../../assets/icon_table.png" alt="table" />
+          <img src="./img/icon_table.png" alt="table" />
         </p>
         <div class="aa-02" v-if="showTable">
           <div class="aaa-01">
@@ -44,21 +44,21 @@
       </div>
       <div class="a-04" v-if="toolbarsValue.alignleft || toolbarsValue.aligncenter || toolbarsValue.alignright">
         <p @click="fontWeightFunction('alignleft')" class="a-01" v-if="toolbarsValue.alignleft">
-          <img src="../../assets/icon_wz_left.png" alt="居左" />
+          <img src="./img/icon_wz_left.png" alt="居左" />
         </p>
         <p @click="fontWeightFunction('aligncenter')" class="a-01" v-if="toolbarsValue.aligncenter">
-          <img src="../../assets/icon_wz_center.png" alt="居中" />
+          <img src="./img/icon_wz_center.png" alt="居中" />
         </p>
         <p @click="fontWeightFunction('alignright')" class="a-01" v-if="toolbarsValue.alignright">
-          <img src="../../assets/icon_wz_right.png" alt="居右" />
+          <img src="./img/icon_wz_right.png" alt="居右" />
         </p>
       </div>
       <div class="a-05" v-if="toolbarsValue.preview">
         <p class="a-01 aa-01" v-if="preview" @click="preview=false">
-          <img src="../../assets/icon_close_eye.png" alt="闭眼" />
+          <img src="./img/icon_close_eye.png" alt="闭眼" />
         </p>
         <p class="a-01 aa-01" v-else @click="preview=true">
-          <img src="../../assets/icon_open_eye.png" alt="开眼" />
+          <img src="./img/icon_open_eye.png" alt="开眼" />
         </p>
       </div>
     </div>
@@ -338,7 +338,7 @@ export default {
   },
 };
 </script>
-<style scoped lang="scss">
+<style lang="scss" rel="stylesheet/scss">
 .markdown-content{
   width:100%;
   height:auto;
@@ -519,7 +519,7 @@ export default {
   }
 }
 </style>
-<style type="text/css">
+<style type="text/css" rel="stylesheet/css">
 html,
 body,
 #editor {

@@ -1,15 +1,21 @@
 {
   "name": "zyf-markdown",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.1.1",
+  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "lib": "vue-cli-service build --target lib --name zyfMarkdown --dest lib packages/index.js"
   },
+  "main": "lib/zyfMarkdown.umd.min.js",
+  "license": "MIT",
+  "author": "zhangyifeng",
+  "keyword": "vue2.0 markdown",
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
     "core-js": "^3.6.5",
+    "current-script-polyfill": "^1.0.0",
     "marked": "^4.0.12",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",

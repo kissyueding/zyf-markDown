@@ -8,6 +8,10 @@
   </div>
 </template>
 <script>
+import MarkDown from "./../packages/index";
+import Vue from "vue";
+ Vue.use(MarkDown);
+
 export default {
   data() {
     return {
