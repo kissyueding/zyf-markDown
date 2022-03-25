@@ -1,4 +1,3 @@
-import 'core-js/stable'; 
 import markdown from './markdown'
 
 // 存储组件列表
