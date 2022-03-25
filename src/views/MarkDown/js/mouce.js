@@ -85,6 +85,15 @@ export function txtareaSelectionStart(dom, method, th, td, styles){
             return theader + '\n' + tgj + '\n' + thBody + '\n'  
         }      
     }
+    const alignleft = function(value) {
+        return value ? `::: hljs-left\n\n ${value}\n\n:::\n` : '::: hljs-left\n\n居左\n\n:::\n'
+    }
+    const aligncenter = function(value) {
+        return value ? `::: hljs-center\n\n ${value}\n\n:::\n` : '::: hljs-center\n\n居中\n\n:::\n'
+    }
+    const alignright = function(value) {
+        return value ? `::: hljs-right\n\n ${value}\n\n:::\n` : '::: hljs-right\n\n居右\n\n:::\n'
+    }
     // 获取返回的值
     switch(method) {
         case 'bold':
@@ -113,6 +122,15 @@ export function txtareaSelectionStart(dom, method, th, td, styles){
             break;
         case 'table' :
             vas = table(sel)
+            break;
+        case 'alignleft' :
+            vas = alignleft(sel)
+            break;
+        case 'aligncenter' :
+            vas = aligncenter(sel)
+            break;
+        case 'alignright' :
+            vas = alignright(sel)
             break;
     }
     //构造新文本

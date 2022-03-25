@@ -42,6 +42,17 @@
           </div>
         </div>
       </div>
+      <div class="a-04">
+        <p @click="fontWeightFunction('alignleft')" class="a-01">
+          <img src="../../assets/icon_wz_left.png" alt="居左" />
+        </p>
+        <p @click="fontWeightFunction('aligncenter')" class="a-01">
+          <img src="../../assets/icon_wz_center.png" alt="居中" />
+        </p>
+        <p @click="fontWeightFunction('alignright')" class="a-01">
+          <img src="../../assets/icon_wz_right.png" alt="居右" />
+        </p>
+      </div>
     </div>
     <div id="editor">
       <textarea
@@ -278,7 +289,7 @@ export default {
       );
       this.$refs.textarea.value = avalue
       this.$emit("input", this.$refs.textarea.value);
-      
+      this.showTable = false
     }
   },
 };
@@ -382,6 +393,16 @@ export default {
           margin-bottom: 10px;
         }
       }
+    }
+    .a-04{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      height: 30px;
+      flex-wrap: nowrap;
+      border-left:solid 2px #ccc; 
+      margin-left:10px;
+      padding-left:10px;
     }
   }
 }
