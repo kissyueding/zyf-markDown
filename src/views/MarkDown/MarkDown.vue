@@ -26,19 +26,19 @@
         <div class="aa-02" v-if="showTable">
           <div class="aaa-01">
             <span>单元格数：</span>
-            <span>行数</span><input style="width:40px;" maxlength="2">
-            <span>列数</span><input style="width:40px;" maxlength="2">
+            <span>行数</span><input v-model="table.th" style="width:40px;" maxlength="2">
+            <span>列数</span><input v-model="table.td" style="width:40px;" maxlength="2">
           </div>
           <div class="aaa-01">
             <span>对齐：</span>
-            <input type="radio" name="radioa" value="mr" checked>默认<br>
-            <input type="radio" name="radioa" value="left">左对齐<br>
-            <input type="radio" name="radioa" value="center">居中<br>
-            <input type="radio" name="radioa" value="right">右对齐<br>
+            <input type="radio" ref="radioamr" name="radioa" value="mr" checked>默认<br>
+            <input type="radio" ref="radioaleft" name="radioa" value="left">左对齐<br>
+            <input type="radio" ref="radioacenter" name="radioa" value="center">居中<br>
+            <input type="radio" ref="radioaright" name="radioa" value="right">右对齐<br>
           </div>
           <div class="aaa-02">
-            <button>确定</button>
-            <button>取消</button>
+            <button @click="submitTable">确定</button>
+            <button @click="closeTable">取消</button>
           </div>
         </div>
       </div>
@@ -101,19 +101,35 @@ export default {
         }
       ],
       showHeaderLi: false,
+      /** table */
+      table: {
+        td: 3,
+        th: 3
+      },
       showTable: false
     }
   },
   watch:{
-    contentHtml() {
-      // textarea自适应高度
-      this.resizeHeight()
-    },
     nativeInputValue() {
       this.setNativeInputValue();
     },
     value(val) {
-      this.contentHtml = marked(val);
+      let asd = JSON.parse(JSON.stringify(val))
+      // 处理居中，居左，居右
+      asd = asd.replace(/::: hljs-left/g, '<div style="text-align:left">')
+      asd = asd.replace(/::: hljs-right/g, '<div style="text-align:right">')
+      asd = asd.replace(/::: hljs-center/g, '<div style="text-align:center">')
+      asd = asd.replace(/:::/g, '</div>')
+      // 处理图片
+      let ajk = asd.match(/!\[([\s\S]*?)\]\(([\s\S]*?)\)/);
+      if(ajk) {
+        if(ajk.length>=3) {
+          asd = asd.replace(/!\[([\s\S]*?)\]\(([\s\S]*?)\)/g, '<img src="' + ajk[2] + '">')
+        }
+      }
+      this.contentHtml = marked(asd);
+      // textarea自适应高度
+      this.resizeHeight()
     }
   },
   props: {
@@ -136,7 +152,7 @@ export default {
       // 默认：true，启动表格， 前提必须gfm: true,
       tables: true,
       // 默认：false，启用回车换行，前提必须gfm: true,
-      breaks: false,
+      breaks: true,
       // 默认：false，尽可能地兼容 markdown.pl的晦涩部分。不纠正原始模型任何的不良行为和错误。
       pedantic: false,
       // 默认：false，对输出进行过滤(清理)，将忽略任何已经输入的html代码(标签)
@@ -226,9 +242,43 @@ export default {
       this.showTable = false
       this.showHeaderLi = this.showHeaderLi ? false : true
     },
+    /** tab-table */
     getOpnTable() {
       this.showHeaderLi = false
       this.showTable = this.showTable ? false : true
+    },
+    closeTable() {
+      this.showTable = false
+    },
+    submitTable() {
+      // 获取单选框的值，确定选中的表格样式
+      let radioamr = this.$refs.radioamr
+      let radioaleft = this.$refs.radioaleft
+      let radioacenter = this.$refs.radioacenter
+      let radioaright = this.$refs.radioaright
+      let styles = 'mr'
+      if(radioamr.checked) {
+        styles = 'mr'
+      }
+      if(radioaleft.checked) {
+        styles = 'left'
+      }
+      if(radioacenter.checked) {
+        styles = 'center'
+      }
+      if(radioaright.checked) {
+        styles = 'right'
+      }
+      let avalue = txtareaSelectionStart(
+        this.$refs.textarea,
+        'table',
+        this.table.th,
+        this.table.td,
+        styles
+      );
+      this.$refs.textarea.value = avalue
+      this.$emit("input", this.$refs.textarea.value);
+      
     }
   },
 };
@@ -366,6 +416,9 @@ body,
   font-size: 14px;
   font-family: "Monaco", courier, monospace;
   padding: 20px;
+}
+.marked >p{
+  margin:0px;
 }
 .marked > p > code {
   padding: 4px 8px;

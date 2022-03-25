@@ -2,9 +2,12 @@
  * txtareaSelectionStart: 获取鼠标选中的文本
  * @param {*} dom ：这是dom对像，建议this.$refs.dom
  * @param {*} method: 需要执行的方法
+ * @param {*} th: 行数 - table需要
+ * @param {*} td: 列数 - table需要
+ * @param {*} styles: 表格样式 - table需要
  * @returns 
  */
-export function txtareaSelectionStart(dom, method){
+export function txtareaSelectionStart(dom, method, th, td, styles){
     let vas
     var txtarea = dom;
     //获取textarea中选择文本开头字符的坐标
@@ -48,6 +51,40 @@ export function txtareaSelectionStart(dom, method){
     const H6 = function(value) {
         return value ? `####### ${value}` : '####### 主题6'
     }
+    const table = function() {
+        let theader = '|'
+        let tbody = '|'
+        let thBody = ''
+        let tgj = '|'
+        if(td) {
+          for(let i=0;i<td;i++) {
+            tbody = tbody + 'column' + i + '|'
+            theader = theader + 'column' + i + '|'
+            if(styles === 'mr'){
+                tgj = tgj + '-|'
+            }
+            if(styles === 'left'){
+                tgj = tgj + ':-----|'
+            }
+            if(styles === 'center'){
+                tgj = tgj + ':----:|'
+            }
+            if(styles === 'right'){
+                tgj = tgj + '----:|'
+            }
+          }
+        }
+        if(th) {
+            for(let i=0;i<th;i++) {
+                thBody = thBody + tbody + '\n'
+            }
+        }
+        if(!td || !th) {
+            return '|column1|column2|column3|\n|-|-|-|\n|content1|content2|content3|\n'
+        } else {
+            return theader + '\n' + tgj + '\n' + thBody + '\n'  
+        }      
+    }
     // 获取返回的值
     switch(method) {
         case 'bold':
@@ -74,9 +111,11 @@ export function txtareaSelectionStart(dom, method){
         case 'H6' :
             vas = H6(sel)
             break;
+        case 'table' :
+            vas = table(sel)
+            break;
     }
     //构造新文本
     var newText=allText.substring(0, start)+vas+allText.substring(finish, allText.length);
     return newText;
 }
-
