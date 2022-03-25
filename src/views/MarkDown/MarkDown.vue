@@ -1,13 +1,13 @@
 <template>
   <div class="markdown-content">
-    <div class="tab">
-      <p @click="fontWeightFunction('bold')" class="a-01">
+    <div class="tab" v-if="toolbarsValue.tabBar && !readonly">
+      <p @click="fontWeightFunction('bold')" class="a-01" v-if="toolbarsValue.bold">
         <img src="../../assets/icon_bold.png" alt="加粗" />
       </p>
-      <p @click="fontWeightFunction('italic')" class="a-01">
+      <p @click="fontWeightFunction('italic')" class="a-01" v-if="toolbarsValue.italic">
         <img src="../../assets/icon_italic.png" alt="倾斜" />
       </p>
-      <div class="a-02">
+      <div class="a-02" v-if="toolbarsValue.useH">
         <p class="a-01 aa-01" @click="getOpnHeaderLi">
           <img src="../../assets/icon_header.png" alt="主题" />
         </p>
@@ -19,7 +19,7 @@
           </template>
         </div>
       </div>
-      <div class="a-03">
+      <div class="a-03" v-if="toolbarsValue.table">
         <p class="a-01 aa-01" @click="getOpnTable">
           <img src="../../assets/icon_table.png" alt="table" />
         </p>
@@ -42,32 +42,41 @@
           </div>
         </div>
       </div>
-      <div class="a-04">
-        <p @click="fontWeightFunction('alignleft')" class="a-01">
+      <div class="a-04" v-if="toolbarsValue.alignleft || toolbarsValue.aligncenter || toolbarsValue.alignright">
+        <p @click="fontWeightFunction('alignleft')" class="a-01" v-if="toolbarsValue.alignleft">
           <img src="../../assets/icon_wz_left.png" alt="居左" />
         </p>
-        <p @click="fontWeightFunction('aligncenter')" class="a-01">
+        <p @click="fontWeightFunction('aligncenter')" class="a-01" v-if="toolbarsValue.aligncenter">
           <img src="../../assets/icon_wz_center.png" alt="居中" />
         </p>
-        <p @click="fontWeightFunction('alignright')" class="a-01">
+        <p @click="fontWeightFunction('alignright')" class="a-01" v-if="toolbarsValue.alignright">
           <img src="../../assets/icon_wz_right.png" alt="居右" />
+        </p>
+      </div>
+      <div class="a-05" v-if="toolbarsValue.preview">
+        <p class="a-01 aa-01" v-if="preview" @click="preview=false">
+          <img src="../../assets/icon_close_eye.png" alt="闭眼" />
+        </p>
+        <p class="a-01 aa-01" v-else @click="preview=true">
+          <img src="../../assets/icon_open_eye.png" alt="开眼" />
         </p>
       </div>
     </div>
     <div id="editor">
-      <textarea
-        ref="textarea"
-        v-if="!readonly"
-        :tabindex="tabindex"
-        :disabled="inputDisabled"
-        v-bind="$attrs"
-        @compositionstart="handleCompositionStart"
-        @compositionupdate="handleCompositionUpdate"
-        @compositionend="handleCompositionEnd"
-        @input="handleInput"
-      ></textarea>
-      <div v-html="contentHtml" class="marked"></div>
-      <!-- <pre v-html="contentHtml">要输出的文本 </pre > -->
+      <div v-if='!readonly' :class="{'left': preview, 'left-all': !preview }">
+        <textarea
+          ref="textarea"
+          v-if="!readonly"
+          :tabindex="tabindex"
+          :disabled="inputDisabled"
+          v-bind="$attrs"
+          @compositionstart="handleCompositionStart"
+          @compositionupdate="handleCompositionUpdate"
+          @compositionend="handleCompositionEnd"
+          @input="handleInput"
+        ></textarea>
+      </div>
+      <div v-if="readonly || preview" v-html="contentHtml" :class="{'marked':true, 'right': preview, 'right-all': readonly}"></div>
     </div>
   </div>
 </template>
@@ -112,6 +121,18 @@ export default {
         }
       ],
       showHeaderLi: false,
+      toolbarsValue: {
+        preview: this.toolbars.preview ? this.toolbars.preview : true,
+        tabBar: this.toolbars.tabBar ? this.toolbars.tabBar : true,
+        bold: this.toolbars.bold ? this.toolbars.bold : true, // 加粗
+        italic: this.toolbars.italic ? this.toolbars.italic : true, // 倾斜
+        useH: this.toolbars.useH ? this.toolbars.useH : true, // 使用标题
+        table: this.toolbars.table ? this.toolbars.table : true, // 表格
+        alignleft: this.toolbars.alignleft ? this.toolbars.alignleft : true, // 居左
+        aligncenter: this.toolbars.aligncenter ? this.toolbars.aligncenter : true, // 居中
+        alignright: this.toolbars.alignright ? this.toolbars.alignright : true // 居右
+      },
+      preview: true,
       /** table */
       table: {
         td: 3,
@@ -141,6 +162,13 @@ export default {
       this.contentHtml = marked(asd);
       // textarea自适应高度
       this.resizeHeight()
+    },
+    toolbars: {
+      handler(val) {
+        this.toolbarsValue = { ...val }
+      },
+      deep: true,
+      immediate: true
     }
   },
   props: {
@@ -154,6 +182,22 @@ export default {
       default: false,
     },
     tabindex: String,
+    toolbars: {
+      type: Object,
+      default: () => {
+        return {
+          tabBar: true, // 启用操作栏
+          preview: true, // 开启预览
+          bold: true, // 加粗
+          italic: true, // 倾斜
+          useH: true, // 使用标题
+          table: true, // 表格
+          alignleft: true, // 居左
+          aligncenter: true, // 居中
+          alignright: true // 居右
+        }
+      },
+    }
   },
   mounted() {
     marked.setOptions({
@@ -307,6 +351,8 @@ export default {
     justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
+    padding: 10px;
+    box-sizing: border-box;
     .a-01{
       width: 30px;
       height: 30px;
@@ -404,6 +450,41 @@ export default {
       margin-left:10px;
       padding-left:10px;
     }
+    .a-05{
+      height: 30px;
+      border-left:solid 2px #ccc; 
+      margin-left:10px;
+      padding-left:10px;
+    }
+  }
+  #editor {
+    width:100%;
+    height:auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    .left{
+      width:50%;
+      textarea{
+        width:100%;
+      }
+    }
+    .left-all{
+      width:100%;
+      textarea{
+        width:100%;
+      }
+    }
+    .right-all{
+      width:100%;
+    }
+    .right{
+      width:50%;
+      word-wrap:break-word;
+      padding:20px;
+      box-sizing: border-box;
+    }
   }
 }
 </style>
@@ -416,9 +497,12 @@ body,
   font-family: "Helvetica Neue", Arial, sans-serif;
   color: #333;
   width: 100%;
+  
 }
-#editor > textarea,
-.marked {
+#editor .left > textarea,
+.left-all > textarea,
+.right-all > .marked,
+.right >.marked {
   display: inline-block;
   width: 49%;
   height: 100%;
@@ -428,7 +512,7 @@ body,
   box-sizing: border-box;
   padding: 0 20px;
 }
-#editor > textarea {
+#editor .left > textarea,  .left-all > textarea{
   border: none;
   border-right: 1px solid #ccc;
   resize: none;

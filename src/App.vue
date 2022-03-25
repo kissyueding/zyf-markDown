@@ -2,7 +2,7 @@
   <div id="app">
     <div id="nav">
       我是测试插件
-      <MarkDown v-model="content" />
+      <MarkDown v-model="content" :disabled="false" :readonly="false" :toolbars="toolbars" placeholder="请输入内容" />
       <div @click="submintFunction">提交</div>
     </div>
   </div>
@@ -11,7 +11,18 @@
 export default {
   data() {
     return {
-      content: '213123213123123'
+      content: '',
+      toolbars: {
+        tabBar: true, // 启用操作栏
+        preview: true, // 开启预览
+        bold: true, // 加粗
+        italic: true, // 倾斜
+        useH: true, // 使用标题
+        table: true, // 表格
+        alignleft: true, // 居左
+        aligncenter: true, // 居中
+        alignright: true // 居右
+      }
     }
   },
   methods: {
