@@ -98,6 +98,12 @@ export function txtareaSelectionStart(dom, method, th, td, styles){
     const alignright = function(value) {
         return value ? `::: hljs-right\n\n ${value}\n\n:::\n` : '::: hljs-right\n\n居右\n\n:::\n'
     }
+    const code = function(value) {
+        return value ? '```' + '\n' +  value + '\n' + '```' + '\n' : '```\n代码块\n```\n'
+    }
+    const link = function() {
+        return '\n[链接描述：示例-百度](https://www.baidu.com)\n'
+    }
     // 获取返回的值
     switch(method) {
         case 'bold':
@@ -135,6 +141,12 @@ export function txtareaSelectionStart(dom, method, th, td, styles){
             break;
         case 'alignright' :
             vas = alignright(sel)
+            break;
+        case 'code':
+            vas = code(sel)
+            break;
+        case 'link':
+            vas = link(sel)
             break;
     }
     //构造新文本

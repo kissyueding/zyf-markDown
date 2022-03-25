@@ -25,7 +25,9 @@ export default {
         table: true, // 表格
         alignleft: true, // 居左
         aligncenter: true, // 居中
-        alignright: true // 居右
+        alignright: true, // 居右
+        code: true, // 代码
+        link: true // 链接
       }
     }
   },
@@ -43,18 +45,5 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
 }
 </style>
