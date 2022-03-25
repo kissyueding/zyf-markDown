@@ -79,6 +79,10 @@ export function txtareaSelectionStart(dom, method, th, td, styles){
                 thBody = thBody + tbody + '\n'
             }
         }
+        let reg = /^([1-9][0-9]*)$/
+        if(!reg.test(td) || !reg.test(th)) {
+            return '|column1|column2|column3|\n|-|-|-|\n|content1|content2|content3|\n'
+        }
         if(!td || !th) {
             return '|column1|column2|column3|\n|-|-|-|\n|content1|content2|content3|\n'
         } else {

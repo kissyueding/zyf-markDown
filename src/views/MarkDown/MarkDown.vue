@@ -26,8 +26,8 @@
         <div class="aa-02" v-if="showTable">
           <div class="aaa-01">
             <span>单元格数：</span>
-            <span>行数</span><input v-model="table.th" style="width:40px;" maxlength="2">
-            <span>列数</span><input v-model="table.td" style="width:40px;" maxlength="2">
+            <span style="margin-right:4px;">行数</span><input v-model="table.th" type="text" pattern="[1-9]*" style="width:40px;border:solid 1px #ccc;height:20px;text-indent:0.5em;margin-right:6px;" maxlength="2">
+            <span style="margin-right:4px;">列数</span><input v-model="table.td" type="text" pattern="[1-9]*" style="width:40px;border:solid 1px #ccc;height:20px;text-indent:0.5em" maxlength="2">
           </div>
           <div class="aaa-01">
             <span>对齐：</span>
@@ -419,14 +419,14 @@ export default {
         left:0px;
       }
       .aa-02{
-        width:300px;
-        height:100px;
+        width:320px;
+        height:130px;
         position: absolute;
         top:30px;
         left:0px;
         background: #ffffff;
         box-shadow: 0 2px 4px rgba(0, 0, 0, .12);
-        padding:10px;
+        padding:20px;
         box-sizing: border-box;
         .aaa-01{
           width:100%;
@@ -437,6 +437,37 @@ export default {
           flex-wrap: wrap;
           font-size:14px;
           margin-bottom: 10px;
+        }
+        .aaa-02{
+          width:100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding-top:10px;
+          padding-bottom: 10px;
+          button{
+            cursor: pointer;
+          }
+          button:nth-of-type(1){
+             background: #409EFF;
+             color:#ffffff;
+             border-radius: 13px;
+             border: solid 1px #409EFF;
+             width:60px;
+             height:26px;
+             margin-right:10px;
+          }
+          button:nth-of-type(2){
+             background: #d9ecff;
+             color:#409EFF;
+             border-radius: 13px;
+             border: solid 1px #409EFF;
+             width:60px;
+             height:26px;
+          }
+          button:active{
+            transform:scale(0.97);
+          }
         }
       }
     }
@@ -592,5 +623,8 @@ body,
   font-size: 15px;
   font-weight: 100;
   line-height: 30px;
+}
+input,button{
+  outline:none;
 }
 </style>
