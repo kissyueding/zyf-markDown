@@ -679,6 +679,7 @@ body,
   height: 30px;
   border: 1px solid #dddddd;
   padding: 0 10px;
+  word-break:break-all;
 }
 .marked > table tbody tr:hover {
   background: #f5f5f5;
