@@ -104,6 +104,7 @@
       <div v-if="readonly || preview" v-html="contentHtml" :class="{'marked':true, 'right': preview, 'right-all': readonly}" @click="closeAllDialog($event)"></div>
     </div>
     <input type="file" ref="img" style="cursor:pointer;position:absolute; top:-11111px;clip:rect(0 0 0 0);" accept="image/*" @change="uploadImg($event, 1)" >
+    <preview v-if="isShowPreview" :currentImg="currentImg" @closeImage="closeImage"></preview>
   </div>
 </template>
 <script>
@@ -112,9 +113,13 @@ import { marked } from "marked/marked.min.js";
 import { isKorean } from "./js/shared";
 import { txtareaSelectionStart } from "./js/mouce";
 import { getIcon } from "./js/icon.js"
+import preview from './preview.vue'
 export default {
   name: "MarkDown",
   componentName: "MarkDown",
+  components: {
+    preview
+  },
   data() {
     return {
       isComposing: false,
@@ -173,8 +178,8 @@ export default {
       useImagUrl: false,
       imageName: '',
       imageUrl: '',
-      showImage: false
-
+      showImage: false,
+      isShowPreview: false
     }
   },
   watch:{
@@ -218,6 +223,10 @@ export default {
     readonly: {
       type: Boolean,
       default: false,
+    },
+    useImgPreview: {
+      type: Boolean,
+      default: true,
     },
     tabindex: String,
     toolbars: {
@@ -324,7 +333,12 @@ export default {
       this.showImage = false
       if(e.target.tagName === 'IMG') {
         this.$emit('getImgUrl', e.target.src)
+        if( this.useImgPreview ) {
+          this.currentImg = e.target.src
+          this.isShowPreview = true
+        }
       }
+      
     },
     /** textarea */
     handleCompositionStart(event) {
@@ -484,6 +498,9 @@ export default {
       this.showTable = false
       this.showHeaderLi = false
       this.showImage = this.showImage ? false : true
+    },
+    closeImage() {
+      this.isShowPreview = false
     }
   },
 };
@@ -758,6 +775,9 @@ export default {
       padding:20px;
       box-sizing: border-box;
     }
+    img{
+      cursor: pointer;
+    }
   }
 }
 </style>
@@ -850,6 +870,7 @@ body,
 .marked > img {
   height: auto;
   max-width: 100%;
+  cursor: pointer;
 }
 .marked > p > a {
   color: #0f6bc7;

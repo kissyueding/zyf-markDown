@@ -28,7 +28,8 @@ Vue.use(markDown)
     v-model="content" 
     :toolbars="toolbars" 
     :readonly="false" 
-    :disabled="false" 
+    :disabled="false"
+    :useImgPreview="true"
     style="width:100%;height:100%;"
     @uploadImage="uploadImage"
     @getImgUrl="getImgUrl"
@@ -118,6 +119,7 @@ uploadImage(e) {
 |toolbars|Object|{}|toolbars|
 |readonly|Bollean|false|readonly|
 |disabled|Bollean|false|disabled|
+|useImgPreview|Bollean|true|image preview|
 
 ### toolbars配置项 (toolbars setting)
 
