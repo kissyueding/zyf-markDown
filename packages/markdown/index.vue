@@ -189,13 +189,15 @@ export default {
       asd = asd.replace(/::: hljs-center/g, '<div style="text-align:center">')
       asd = asd.replace(/:::/g, '</div>')
       // 处理图片
-      let ajk = asd.match(/!\[([\s\S]*?)\]\(([\s\S]*?)\)/);
-      if(ajk) {
-        if(ajk.length>=3) {
-          asd = asd.replace(/!\[([\s\S]*?)\]\(([\s\S]*?)\)/g, '<img src="' + ajk[2] + '">')
-        }
-      }
+      // const rendererMD = new marked.Renderer()
+      // rendererMD.image = function(href, title, text) {
+      //   console.log(href, title, text)
+      //   return `<img οnclick="showMarkedImage(event, '${href}')" src="${href}" alt="${text}" title="${
+      //     title ? title : ''
+      //   }">`
+      // }
       this.contentHtml = marked(asd);
+
       // textarea自适应高度
       this.resizeHeight()
     },
@@ -256,6 +258,13 @@ export default {
       // 默认：false，使用更为时髦的标点，比如在引用语法中加入破折号。
       smartypants: false
     });
+    // const rendererMD = new marked.Renderer()
+    // rendererMD.image = function(href, title, text) {
+    //   console.log(href, title, text)
+    //   return `<img οnclick="showMarkedImage(event, '${href}')" src="${href}" alt="${text}" title="${
+    //     title ? title : ''
+    //   }">`
+    // }
     this.contentHtml = marked(this.value)
     this.setNativeInputValue();
   },
@@ -462,7 +471,7 @@ export default {
       this.useImagUrl = false
     },
     addImageUrl() {
-      this.$refs.textarea.value = ''
+      this.$refs.img.value = ''
       this.imageName = ''
       this.imageUrl = ''
       this.useImagUrl = true

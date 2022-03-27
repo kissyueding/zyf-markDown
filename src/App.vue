@@ -46,7 +46,7 @@ export default {
       this.$refs.MarkDown.imgUrlAdd('https://www.zybuluo.com/static/img/logo.png', 'logo-icon')
     },
     submintFunction() {
-      console.log('123123123')
+      console.log('123123123', this.content)
     }
   }
 }
