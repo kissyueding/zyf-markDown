@@ -67,9 +67,24 @@
       <p @click="fontWeightFunction('link')" class="a-01" v-if="toolbarsValue.link">
         <img :src="iconLink" alt="链接" />
       </p>
-      <p @click="uploadImage()" class="a-01" v-if="toolbarsValue.img">
-        <img :src="iconImage" alt="上传图片" />
-      </p>
+      
+      <div class="a-06" v-if="toolbarsValue.img">
+        <p class="a-01" @click="getOpenImage()">
+           <img :src="iconImage" alt="上传图片" />
+        </p>
+        <div v-if="!useImagUrl && showImage" class="a-02">
+           <p @click="addImageUrl()">新增图片链接</p>
+           <p @click="uploadImage()">上传图片</p>
+        </div>
+        <div v-if="useImagUrl && showImage" class="a-03">
+          <input placeholder="图片名称或描述" v-model="imageName" maxlength="200">
+          <input placeholder="图片链接" v-model="imageUrl" maxlength="200">
+          <div class="aaa-02">
+            <button @click="submitImgUrl">确定</button>
+            <button @click="closeImgUrl">取消</button>
+          </div>
+        </div>
+      </div>
     </div>
     <div id="editor">
       <div v-if='!readonly' :class="{'left': preview, 'left-all': !preview }">
@@ -83,9 +98,10 @@
           @compositionupdate="handleCompositionUpdate"
           @compositionend="handleCompositionEnd"
           @input="handleInput"
+          @click="closeAllDialog"
         ></textarea>
       </div>
-      <div v-if="readonly || preview" v-html="contentHtml" :class="{'marked':true, 'right': preview, 'right-all': readonly}"></div>
+      <div v-if="readonly || preview" v-html="contentHtml" :class="{'marked':true, 'right': preview, 'right-all': readonly}" @click="closeAllDialog"></div>
     </div>
     <input type="file" ref="img" style="cursor:pointer;position:absolute; top:-11111px;clip:rect(0 0 0 0);" accept="image/*" @change="uploadImg($event, 1)" >
   </div>
@@ -152,7 +168,13 @@ export default {
         td: 3,
         th: 3
       },
-      showTable: false
+      showTable: false,
+      /** iamge */
+      useImagUrl: false,
+      imageName: '',
+      imageUrl: '',
+      showImage: false
+
     }
   },
   watch:{
@@ -287,6 +309,11 @@ export default {
     },
   },
   methods: {
+    closeAllDialog() {
+      this.showTable = false
+      this.showHeaderLi = false
+      this.showImage = false
+    },
     /** textarea */
     handleCompositionStart(event) {
       this.$emit('compositionstart', event);
@@ -339,6 +366,7 @@ export default {
     fontWeightFunction(method) {
       this.showHeaderLi = false
       this.showTable = false
+      this.showImage = false
       let avalue = txtareaSelectionStart(
         this.$refs.textarea,
         method
@@ -348,11 +376,13 @@ export default {
     },
     getOpnHeaderLi() {
       this.showTable = false
+      this.showImage = false
       this.showHeaderLi = this.showHeaderLi ? false : true
     },
     /** tab-table */
     getOpnTable() {
       this.showHeaderLi = false
+      this.showImage = false
       this.showTable = this.showTable ? false : true
     },
     closeTable() {
@@ -390,6 +420,7 @@ export default {
     },
     /** img */
     uploadImage() {
+      this.showImage = false
       this.$refs.img.value = ''
       this.$nextTick(function() {
         this.$refs.img.click()
@@ -412,6 +443,35 @@ export default {
       );
       this.$refs.textarea.value = avalue
       this.$emit("input", this.$refs.textarea.value);
+    },
+    submitImgUrl() {
+      let avalue = txtareaSelectionStart(
+        this.$refs.textarea,
+        'imgAdd',
+        '',
+        '',
+        '',
+        this.imageUrl ? this.imageUrl : '图片链接',
+        this.imageName ? this.imageName : '图片名称或描述' 
+      );
+      this.$refs.textarea.value = avalue
+      this.$emit("input", this.$refs.textarea.value);
+      this.showImage = false
+    },
+    closeImgUrl() {
+      this.useImagUrl = false
+    },
+    addImageUrl() {
+      this.$refs.textarea.value = ''
+      this.imageName = ''
+      this.imageUrl = ''
+      this.useImagUrl = true
+    },
+    getOpenImage() {
+      this.useImagUrl = false
+      this.showTable = false
+      this.showHeaderLi = false
+      this.showImage = this.showImage ? false : true
     }
   },
 };
@@ -564,6 +624,91 @@ export default {
       border-left:solid 2px #ccc; 
       margin-left:10px;
       padding-left:10px;
+    }
+    .a-06{
+      width: 30px;
+      height: 30px;
+      position: relative;
+      z-index:10000;
+      .a-01{
+        width:30px;
+        height:30px;
+        position: absolute;
+        top:0px;
+        left:0px;
+      }
+      .a-02{
+        width:120px;
+        background: #ffffff;
+        height:80px;
+        font-size:14px;
+        z-index: 1000;
+        position: absolute;
+        top:30px;
+        left:0px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .12);
+        p{
+          cursor: pointer;
+          padding: 10px 0;
+          margin-top:0px;
+          margin-bottom:0px;
+          font-size:14px;
+          color:#626364;
+          text-align: center;
+        }
+        p:hover{
+          color:#409EFF;
+          background:#d9ecff;
+        }
+      }
+      .a-03{
+        width:220px;
+        background: #ffffff;
+        height:140px;
+        font-size:14px;
+        z-index: 1000;
+        position: absolute;
+        top:30px;
+        left:0px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .12);
+        text-indent: 0.5em;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        input{
+          width:200px;
+          height:30px;
+          margin-bottom: 10px;
+          text-indent: 0.5rem;
+          border-radius: 6px;
+          border:solid 1px #cccc;
+        }
+        button{
+            cursor: pointer;
+            margin-top:5px;
+          }
+          button:nth-of-type(1){
+             background: #409EFF;
+             color:#ffffff;
+             border-radius: 13px;
+             border: solid 1px #409EFF;
+             width:60px;
+             height:26px;
+             margin-right:10px;
+          }
+          button:nth-of-type(2){
+             background: #d9ecff;
+             color:#409EFF;
+             border-radius: 13px;
+             border: solid 1px #409EFF;
+             width:60px;
+             height:26px;
+          }
+          button:active{
+            transform:scale(0.97);
+          }
+      }
     }
   }
   #editor {
