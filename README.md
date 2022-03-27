@@ -27,7 +27,7 @@ Vue.use(markDown)
     <markDown 
     v-model="content" 
     :toolbars="toolbars" 
-    :readonly="readonly" 
+    :readonly="false" 
     :disabled="false" 
     style="width:100%;height:100%;"
     @uploadImage="uploadImage"
@@ -65,7 +65,7 @@ export default {
             axios({
                 url: '上传图片的地址',
                 method: 'post',
-                data: formate,
+                data: formData,
             }).then(res=>{
             console.log('res=>',res);
             // imgUrlAdd 有两个参数imgUrlAdd(url, name)
