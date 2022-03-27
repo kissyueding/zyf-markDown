@@ -31,6 +31,7 @@ Vue.use(markDown)
     :disabled="false" 
     style="width:100%;height:100%;"
     @uploadImage="uploadImage"
+    @getImgUrl="getImgUrl"
     />
 </div>
 </template>
@@ -71,6 +72,9 @@ export default {
             // Imgurladd has two parameters imgurladd (URL, name)
             this.$refs.MarkDown.imgUrlAdd('url: 这儿写url->res.url', e.name)           
             }).catch(() => {})
+        },
+        getImgUrl(e) {
+          // get image url
         }
     }
 }

@@ -101,7 +101,7 @@
           @click="closeAllDialog"
         ></textarea>
       </div>
-      <div v-if="readonly || preview" v-html="contentHtml" :class="{'marked':true, 'right': preview, 'right-all': readonly}" @click="closeAllDialog"></div>
+      <div v-if="readonly || preview" v-html="contentHtml" :class="{'marked':true, 'right': preview, 'right-all': readonly}" @click="closeAllDialog($event)"></div>
     </div>
     <input type="file" ref="img" style="cursor:pointer;position:absolute; top:-11111px;clip:rect(0 0 0 0);" accept="image/*" @change="uploadImg($event, 1)" >
   </div>
@@ -189,13 +189,15 @@ export default {
       asd = asd.replace(/::: hljs-center/g, '<div style="text-align:center">')
       asd = asd.replace(/:::/g, '</div>')
       // 处理图片
-      let ajk = asd.match(/!\[([\s\S]*?)\]\(([\s\S]*?)\)/);
-      if(ajk) {
-        if(ajk.length>=3) {
-          asd = asd.replace(/!\[([\s\S]*?)\]\(([\s\S]*?)\)/g, '<img src="' + ajk[2] + '">')
-        }
-      }
+      // const rendererMD = new marked.Renderer()
+      // rendererMD.image = function(href, title, text) {
+      //   console.log(href, title, text)
+      //   return `<img οnclick="showMarkedImage(event, '${href}')" src="${href}" alt="${text}" title="${
+      //     title ? title : ''
+      //   }">`
+      // }
       this.contentHtml = marked(asd);
+
       // textarea自适应高度
       this.resizeHeight()
     },
@@ -256,6 +258,13 @@ export default {
       // 默认：false，使用更为时髦的标点，比如在引用语法中加入破折号。
       smartypants: false
     });
+    // const rendererMD = new marked.Renderer()
+    // rendererMD.image = function(href, title, text) {
+    //   console.log(href, title, text)
+    //   return `<img οnclick="showMarkedImage(event, '${href}')" src="${href}" alt="${text}" title="${
+    //     title ? title : ''
+    //   }">`
+    // }
     this.contentHtml = marked(this.value)
     this.setNativeInputValue();
   },
@@ -309,10 +318,13 @@ export default {
     },
   },
   methods: {
-    closeAllDialog() {
+    closeAllDialog(e) {
       this.showTable = false
       this.showHeaderLi = false
       this.showImage = false
+      if(e.target.tagName === 'IMG') {
+        this.$emit('getImgUrl', e.target.src)
+      }
     },
     /** textarea */
     handleCompositionStart(event) {
@@ -462,7 +474,7 @@ export default {
       this.useImagUrl = false
     },
     addImageUrl() {
-      this.$refs.textarea.value = ''
+      this.$refs.img.value = ''
       this.imageName = ''
       this.imageUrl = ''
       this.useImagUrl = true

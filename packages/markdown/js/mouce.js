@@ -151,7 +151,7 @@ export function txtareaSelectionStart(dom, method, th, td, styles, imgUrl, imgDe
             vas = link(sel)
             break;
         case 'imgAdd':
-            vas = '![' + imgDesc + '](' + imgUrl + ')'
+            vas = '\n![' + imgDesc + '](' + imgUrl + ')\n'
             break;
     }
     //构造新文本

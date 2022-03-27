@@ -31,6 +31,7 @@ Vue.use(markDown)
     :disabled="false" 
     style="width:100%;height:100%;"
     @uploadImage="uploadImage"
+    @getImgUrl="getImgUrl"
     />
 </div>
 </template>
@@ -71,6 +72,9 @@ export default {
             // imgUrlAdd 有两个参数imgUrlAdd(url, name)
             this.$refs.MarkDown.imgUrlAdd('url: 这儿写url->res.url', e.name)           
             }).catch(() => {})
+        },
+        getImgUrl(e) {
+          // 获取到点击图片的url
         }
     }
 }
