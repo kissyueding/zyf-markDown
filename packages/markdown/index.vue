@@ -468,6 +468,7 @@ export default {
       this.useImagUrl = true
     },
     getOpenImage() {
+      this.useImagUrl = false
       this.showTable = false
       this.showHeaderLi = false
       this.showImage = this.showImage ? false : true
