@@ -101,7 +101,7 @@
           @click="closeAllDialog"
         ></textarea>
       </div>
-      <div v-if="readonly || preview" v-html="contentHtml" :class="{'marked':true, 'right': preview, 'right-all': readonly}" @click="closeAllDialog"></div>
+      <div v-if="readonly || preview" v-html="contentHtml" :class="{'marked':true, 'right': preview, 'right-all': readonly}" @click="closeAllDialog($event)"></div>
     </div>
     <input type="file" ref="img" style="cursor:pointer;position:absolute; top:-11111px;clip:rect(0 0 0 0);" accept="image/*" @change="uploadImg($event, 1)" >
   </div>
@@ -318,10 +318,13 @@ export default {
     },
   },
   methods: {
-    closeAllDialog() {
+    closeAllDialog(e) {
       this.showTable = false
       this.showHeaderLi = false
       this.showImage = false
+      if(e.target.tagName === 'IMG') {
+        this.$emit('getImgUrl', e.target.src)
+      }
     },
     /** textarea */
     handleCompositionStart(event) {

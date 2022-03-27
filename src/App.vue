@@ -9,6 +9,7 @@
       :toolbars="toolbars" 
       placeholder="请输入内容"
       @uploadImage="uploadImage"
+      @getImgUrl="getImgUrl"
        />
       <div @click="submintFunction">提交</div>
     </div>
@@ -47,6 +48,9 @@ export default {
     },
     submintFunction() {
       console.log('123123123', this.content)
+    },
+    getImgUrl(val) {
+      console.log(val)
     }
   }
 }
