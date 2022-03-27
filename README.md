@@ -100,7 +100,7 @@ uploadImage(e) {
     axios({
         url: '上传图片的地址',
         method: 'post',
-        data: formate,
+        data: formData,
     }).then(res=>{
        console.log('res=>',res);
        // imgUrlAdd 有两个参数imgUrlAdd(url, name)

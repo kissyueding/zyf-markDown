@@ -100,7 +100,7 @@ uploadImage(e) {
     axios({
         url: 'url',
         method: 'post',
-        data: formate,
+        data: formData,
     }).then(res=>{
        console.log('res=>',res);
        // Imgurladd has two parameters imgurladd (URL, name)
