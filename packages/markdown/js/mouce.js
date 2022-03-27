@@ -5,9 +5,11 @@
  * @param {*} th: 行数 - table需要
  * @param {*} td: 列数 - table需要
  * @param {*} styles: 表格样式 - table需要
+ * @param {*} imgUrl: 图片url - 上传图片需要
+ * @param {*} imgDesc：图片名称 - 上传图片需要
  * @returns 
  */
-export function txtareaSelectionStart(dom, method, th, td, styles){
+export function txtareaSelectionStart(dom, method, th, td, styles, imgUrl, imgDesc){
     let vas
     var txtarea = dom;
     //获取textarea中选择文本开头字符的坐标
@@ -147,6 +149,9 @@ export function txtareaSelectionStart(dom, method, th, td, styles){
             break;
         case 'link':
             vas = link(sel)
+            break;
+        case 'imgAdd':
+            vas = '![' + imgDesc + '](' + imgUrl + ')'
             break;
     }
     //构造新文本

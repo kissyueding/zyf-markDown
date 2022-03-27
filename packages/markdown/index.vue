@@ -67,6 +67,9 @@
       <p @click="fontWeightFunction('link')" class="a-01" v-if="toolbarsValue.link">
         <img :src="iconLink" alt="链接" />
       </p>
+      <p @click="uploadImage()" class="a-01" v-if="toolbarsValue.link">
+        <img :src="iconImage" alt="上传图片" />
+      </p>
     </div>
     <div id="editor">
       <div v-if='!readonly' :class="{'left': preview, 'left-all': !preview }">
@@ -84,6 +87,7 @@
       </div>
       <div v-if="readonly || preview" v-html="contentHtml" :class="{'marked':true, 'right': preview, 'right-all': readonly}"></div>
     </div>
+    <input type="file" ref="img" style="cursor:pointer;position:absolute; top:-11111px;clip:rect(0 0 0 0);" accept="image/*" @change="uploadImg($event, 1)" >
   </div>
 </template>
 <script>
@@ -268,6 +272,9 @@ export default {
     },
     iconLink() {
       return getIcon('icon_link')
+    },
+    iconImage() {
+      return getIcon('icon_image')
     }
   },
   filters: {
@@ -376,6 +383,31 @@ export default {
       this.$refs.textarea.value = avalue
       this.$emit("input", this.$refs.textarea.value);
       this.showTable = false
+    },
+    /** img */
+    uploadImage() {
+      this.$refs.img.value = ''
+      this.$nextTick(function() {
+        this.$refs.img.click()
+      })
+    },
+    uploadImg(e) {
+      // 上传图片
+      const file = e.target.files[0]
+      this.$emit('uploadImage', file)
+    },
+    imgUrlAdd(imgUrl, imgName) {
+      let avalue = txtareaSelectionStart(
+        this.$refs.textarea,
+        'imgAdd',
+        '',
+        '',
+        '',
+        imgUrl,
+        imgName  
+      );
+      this.$refs.textarea.value = avalue
+      this.$emit("input", this.$refs.textarea.value);
     }
   },
 };
@@ -654,7 +686,8 @@ body,
   font-size: 42px;
 }
 .marked > img {
-  width: 100%;
+  height: auto;
+  max-width: 100%;
 }
 .marked > p > a {
   color: #0f6bc7;

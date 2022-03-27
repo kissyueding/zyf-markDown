@@ -2,7 +2,14 @@
   <div id="app">
     <div id="nav">
       我是测试插件
-      <MarkDown v-model="content" :disabled="false" :readonly="false" :toolbars="toolbars" placeholder="请输入内容" />
+      <MarkDown ref="MarkDown" 
+      v-model="content" 
+      :disabled="false" 
+      :readonly="false" 
+      :toolbars="toolbars" 
+      placeholder="请输入内容"
+      @uploadImage="uploadImage"
+       />
       <div @click="submintFunction">提交</div>
     </div>
   </div>
@@ -32,8 +39,13 @@ export default {
     }
   },
   methods: {
+    uploadImage(e) {
+      console.log(e, e.name)
+      // imgUrlAdd 有两个参数imgUrlAdd(url, name)
+      this.$refs.MarkDown.imgUrlAdd('https://www.zybuluo.com/static/img/logo.png', 'logo-icon')
+    },
     submintFunction() {
-      console.log(this.content)
+      console.log('123123123')
     }
   }
 }

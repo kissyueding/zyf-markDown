@@ -1,5 +1,5 @@
 # zyf-markdown
-本插件只是简易版markdown工具，暂未兼容vue3.0。暂不支持图片上传功能，后续会持续支持该功能，也会不断优化。
+本插件只是简易版markdown工具，暂未兼容vue3.0。支持自定义图片上传功能，也会不断优化。
 ### 仓库地址
 [仓库地址](https://gitee.com/zhangyifen/zyf-mark-down.git)
 
@@ -24,10 +24,18 @@ Vue.use(markDown)
 ```javascript
 <template>
 <div class="example-wrap">
-    <markDown v-model="content" :toolbars="toolbars" :readonly="readonly" :disabled="false" style="width:100%;height:100%;" />
+    <markDown 
+    v-model="content" 
+    :toolbars="toolbars" 
+    :readonly="readonly" 
+    :disabled="false" 
+    style="width:100%;height:100%;"
+    @uploadImage="uploadImage"
+    />
 </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
     data() {
         return {
@@ -45,6 +53,26 @@ export default {
                 code: true, // 代码
                 link: true // 链接
             }
+        }
+    },
+    methods: {
+        // 上传图片
+        uploadImage(e) {
+            console.log(e, e.name)
+            //这儿写自己的上传方法，e是markdown返回给你的file对象
+            const formData = new FormData()
+            // 这边考虑到生成的图片格式是png格式，所以需要对文件名做个处理
+            formData.append('file', e)
+            axios({
+                url: '上传图片的地址',
+                method: 'post',
+                params: '必须是一个无格式对象 query参数',
+                data: formate,
+            }).then(res=>{
+            console.log('res=>',res);
+            // imgUrlAdd 有两个参数imgUrlAdd(url, name)
+            this.$refs.MarkDown.imgUrlAdd('url: 这儿写url->res.url', e.name)           
+            }).catch(() => {})
         }
     }
 }
@@ -64,11 +92,30 @@ export default {
 }
 </style>
 ```
-
+### 上传图片
+```
+uploadImage(e) {
+    console.log(e, e.name)
+    //这儿写自己的上传方法，e是markdown返回给你的file对象
+    const formData = new FormData()
+    // 这边考虑到生成的图片格式是png格式，所以需要对文件名做个处理
+    formData.append('file', e)
+    axios({
+        url: '上传图片的地址',
+        method: 'post',
+        params: '必须是一个无格式对象 query参数',
+        data: formate,
+    }).then(res=>{
+       console.log('res=>',res);
+       // imgUrlAdd 有两个参数imgUrlAdd(url, name)
+       this.$refs.MarkDown.imgUrlAdd('url: 这儿写url->res.url', e.name)           
+    }).catch(() => {})
+}
+```
 ### 配置项
 |字段|类型|默认值|描述|
 |:-----|:-----|:-----|:-----|
-|toolbars|Object|{}|顶部操作栏，配置见操作栏配置|
+|toolbars|Object|{}|顶部操作栏，配置见'toolbars'配置|
 |readonly|Bollean|false|是否只读|
 |disabled|Bollean|false|是否不可编辑|
 
