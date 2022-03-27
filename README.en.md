@@ -41,17 +41,17 @@ export default {
         return {
             content: '',
             toolbars: {
-                tabBar: true, // 启用操作栏
-                preview: true, // 开启预览
-                bold: true, // 加粗
-                italic: true, // 倾斜
-                useH: true, // 使用标题
-                table: true, // 表格
-                alignleft: true, // 居左
-                aligncenter: true, // 居中
-                alignright: true, // 居右
-                code: true, // 代码
-                link: true // 链接
+                tabBar: true,
+                preview: true,
+                bold: true,
+                italic: true,
+                useH: true,
+                table: true,
+                alignleft: true,
+                aligncenter: true,
+                alignright: true,
+                code: true,
+                link: true
             }
         }
     },
@@ -59,18 +59,16 @@ export default {
         // 上传图片
         uploadImage(e) {
             console.log(e, e.name)
-            //这儿写自己的上传方法，e是markdown返回给你的file对象
+            //Write your own upload method here. E is the file object returned to you by markdown
             const formData = new FormData()
-            // 这边考虑到生成的图片格式是png格式，所以需要对文件名做个处理
             formData.append('file', e)
             axios({
-                url: '上传图片的地址',
+                url: 'url',
                 method: 'post',
-                params: '必须是一个无格式对象 query参数',
                 data: formate,
             }).then(res=>{
             console.log('res=>',res);
-            // imgUrlAdd 有两个参数imgUrlAdd(url, name)
+            // Imgurladd has two parameters imgurladd (URL, name)
             this.$refs.MarkDown.imgUrlAdd('url: 这儿写url->res.url', e.name)           
             }).catch(() => {})
         }
@@ -96,41 +94,40 @@ export default {
 ```
 uploadImage(e) {
     console.log(e, e.name)
-    //这儿写自己的上传方法，e是markdown返回给你的file对象
+    //Write your own upload method here. E is the file object returned to you by markdown
     const formData = new FormData()
-    // 这边考虑到生成的图片格式是png格式，所以需要对文件名做个处理
     formData.append('file', e)
     axios({
-        url: '上传图片的地址',
+        url: 'url',
         method: 'post',
-        params: '必须是一个无格式对象 query参数',
         data: formate,
     }).then(res=>{
        console.log('res=>',res);
-       // imgUrlAdd 有两个参数imgUrlAdd(url, name)
+       // Imgurladd has two parameters imgurladd (URL, name)
        this.$refs.MarkDown.imgUrlAdd('url: 这儿写url->res.url', e.name)           
     }).catch(() => {})
 }
 ```
 ### 配置项 (setting)
-|字段|类型|默认值|描述|
+|field|type|Default|descripe|
 |:-----|:-----|:-----|:-----|
-|toolbars|Object|{}|顶部操作栏，配置见'toolbars'配置|
-|readonly|Bollean|false|是否只读|
-|disabled|Bollean|false|是否不可编辑|
+|toolbars|Object|{}|toolbars|
+|readonly|Bollean|false|readonly|
+|disabled|Bollean|false|disabled|
 
 ### toolbars配置项 (toolbars setting)
 
-|字段|类型|默认值|描述|
+|field|type|Default|descripe|
 |:-----|:-----|:-----|:-----|
-|tabBar|Bollean|true|启用操作栏|
-|preview|Bollean|false|是否开启预览|
-|bold|Bollean|false|是否开启加粗|
-|italic|Bollean|true|启用倾斜字体|
-|useH|Bollean|false|是否使用不同主题大小的字体|
-|table|Bollean|false|是否使用表格|
-|alignleft|Bollean|true|居左对齐|
-|aligncenter|Bollean|false|居中对齐|
-|alignright|Bollean|false|居右对齐|
-|code|Bollean|false|代码|
-|link|Bollean|false|链接|
+|tabBar|Bollean|true|action bar|
+|preview|Bollean|true|preview|
+|bold|Bollean|true|bold|
+|italic|Bollean|true|italic|
+|useH|Bollean|true|use Title|
+|table|Bollean|true|table|
+|alignleft|Bollean|true|Align left|
+|aligncenter|Bollean|true|Align center|
+|alignright|Bollean|true|Align center|
+|code|Bollean|true|code|
+|link|Bollean|true|link|
+|img|Bollean|true|image|

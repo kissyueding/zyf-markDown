@@ -141,7 +141,10 @@ export default {
         table: this.toolbars.table ? this.toolbars.table : true, // 表格
         alignleft: this.toolbars.alignleft ? this.toolbars.alignleft : true, // 居左
         aligncenter: this.toolbars.aligncenter ? this.toolbars.aligncenter : true, // 居中
-        alignright: this.toolbars.alignright ? this.toolbars.alignright : true // 居右
+        alignright: this.toolbars.alignright ? this.toolbars.alignright : true, // 居右
+        code: this.toolbars.code ? this.toolbars.code : true, // 代码块
+        link: this.toolbars.link ? this.toolbars.link : true, // 链接
+        img: this.toolbars.img ? this.toolbars.img : true // 启用图片
       },
       preview: true,
       /** table */
@@ -207,7 +210,8 @@ export default {
           aligncenter: true, // 居中
           alignright: true, // 居右
           code: true, // 代码块
-          link: true // 链接
+          link: true, // 链接
+          img: true // 启用图片
         }
       },
     }

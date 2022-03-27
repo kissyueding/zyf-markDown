@@ -61,12 +61,10 @@ export default {
             console.log(e, e.name)
             //这儿写自己的上传方法，e是markdown返回给你的file对象
             const formData = new FormData()
-            // 这边考虑到生成的图片格式是png格式，所以需要对文件名做个处理
             formData.append('file', e)
             axios({
                 url: '上传图片的地址',
                 method: 'post',
-                params: '必须是一个无格式对象 query参数',
                 data: formate,
             }).then(res=>{
             console.log('res=>',res);
@@ -98,12 +96,10 @@ uploadImage(e) {
     console.log(e, e.name)
     //这儿写自己的上传方法，e是markdown返回给你的file对象
     const formData = new FormData()
-    // 这边考虑到生成的图片格式是png格式，所以需要对文件名做个处理
     formData.append('file', e)
     axios({
         url: '上传图片的地址',
         method: 'post',
-        params: '必须是一个无格式对象 query参数',
         data: formate,
     }).then(res=>{
        console.log('res=>',res);
@@ -124,13 +120,14 @@ uploadImage(e) {
 |字段|类型|默认值|描述|
 |:-----|:-----|:-----|:-----|
 |tabBar|Bollean|true|启用操作栏|
-|preview|Bollean|false|是否开启预览|
-|bold|Bollean|false|是否开启加粗|
+|preview|Bollean|true|是否开启预览|
+|bold|Bollean|true|是否开启加粗|
 |italic|Bollean|true|启用倾斜字体|
-|useH|Bollean|false|是否使用不同主题大小的字体|
-|table|Bollean|false|是否使用表格|
+|useH|Bollean|true|是否使用不同主题大小的字体|
+|table|Bollean|true|是否使用表格|
 |alignleft|Bollean|true|居左对齐|
-|aligncenter|Bollean|false|居中对齐|
-|alignright|Bollean|false|居右对齐|
-|code|Bollean|false|代码|
-|link|Bollean|false|链接|
+|aligncenter|Bollean|true|居中对齐|
+|alignright|Bollean|true|居右对齐|
+|code|Bollean|true|代码|
+|link|Bollean|true|链接|
+|img|Bollean|true|图片上传|

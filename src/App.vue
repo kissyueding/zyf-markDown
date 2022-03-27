@@ -34,7 +34,8 @@ export default {
         aligncenter: true, // 居中
         alignright: true, // 居右
         code: true, // 代码
-        link: true // 链接
+        link: true, // 链接
+        img: true
       }
     }
   },
