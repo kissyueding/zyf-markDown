@@ -35,7 +35,7 @@ export default {
         alignright: true, // 居右
         code: true, // 代码
         link: true, // 链接
-        img: true
+        img: true // 图片
       }
     }
   },

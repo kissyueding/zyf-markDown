@@ -67,7 +67,7 @@
       <p @click="fontWeightFunction('link')" class="a-01" v-if="toolbarsValue.link">
         <img :src="iconLink" alt="链接" />
       </p>
-      <p @click="uploadImage()" class="a-01" v-if="toolbarsValue.link">
+      <p @click="uploadImage()" class="a-01" v-if="toolbarsValue.img">
         <img :src="iconImage" alt="上传图片" />
       </p>
     </div>
