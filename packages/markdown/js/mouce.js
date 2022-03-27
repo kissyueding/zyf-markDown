@@ -83,25 +83,25 @@ export function txtareaSelectionStart(dom, method, th, td, styles, imgUrl, imgDe
         }
         let reg = /^([1-9][0-9]*)$/
         if(!reg.test(td) || !reg.test(th)) {
-            return '|column1|column2|column3|\n|-|-|-|\n|content1|content2|content3|\n'
+            return '\n|column1|column2|column3|\n|-|-|-|\n|content1|content2|content3|\n'
         }
         if(!td || !th) {
-            return '|column1|column2|column3|\n|-|-|-|\n|content1|content2|content3|\n'
+            return '\n|column1|column2|column3|\n|-|-|-|\n|content1|content2|content3|\n'
         } else {
             return theader + '\n' + tgj + '\n' + thBody + '\n'  
         }      
     }
     const alignleft = function(value) {
-        return value ? `::: hljs-left\n\n ${value}\n\n:::\n` : '::: hljs-left\n\n居左\n\n:::\n'
+        return value ? `\n::: hljs-left\n\n ${value}\n\n:::\n` : '\n::: hljs-left\n\n居左\n\n:::\n'
     }
     const aligncenter = function(value) {
-        return value ? `::: hljs-center\n\n ${value}\n\n:::\n` : '::: hljs-center\n\n居中\n\n:::\n'
+        return value ? `\n::: hljs-center\n\n ${value}\n\n:::\n` : '\n::: hljs-center\n\n居中\n\n:::\n'
     }
     const alignright = function(value) {
-        return value ? `::: hljs-right\n\n ${value}\n\n:::\n` : '::: hljs-right\n\n居右\n\n:::\n'
+        return value ? `\n::: hljs-right\n\n ${value}\n\n:::\n` : '\n::: hljs-right\n\n居右\n\n:::\n'
     }
     const code = function(value) {
-        return value ? '```' + '\n' +  value + '\n' + '```' + '\n' : '```\n代码块\n```\n'
+        return value ? '\n```' + '\n' +  value + '\n' + '```' + '\n' : '\n```\n代码块\n```\n'
     }
     const link = function() {
         return '\n[链接描述：示例-百度](https://www.baidu.com)\n'
