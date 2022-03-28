@@ -863,6 +863,9 @@ body{
   margin: 0;
   width: 100%;
 }
+h1, h2, h3, h4, h5, h6{
+  font-family: inherit;
+}
 #editor {
   margin: 0;
   height: auto;
@@ -941,10 +944,10 @@ body{
   background: #f5f5f5;
 }
 .marked > h1 {
-  font-size: 48px;
+  font-size: 30px;
 }
 .marked > h2 {
-  font-size: 42px;
+  font-size: 36px;
 }
 .marked > img {
   height: auto;
