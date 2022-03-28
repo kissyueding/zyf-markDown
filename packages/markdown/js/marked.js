@@ -1062,7 +1062,6 @@
 
     _proto.del = function del(src) {
       var cap = this.rules.inline.del.exec(src);
-      console.log(cap)
 
       if (cap) {
         return {
