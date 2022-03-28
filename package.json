@@ -1,6 +1,6 @@
 {
   "name": "zyf-markdown",
-  "version": "1.3.4",
+  "version": "1.3.7",
   "description": "简单的markdown工具，不支持vue3，兼容IE",
   "private": false,
   "scripts": {
@@ -43,12 +43,11 @@
     },
     "extends": [
       "plugin:vue/essential",
-      "eslint:recommended"
+      "eslint:no"
     ],
     "parserOptions": {
       "parser": "babel-eslint"
-    },
-    "rules": {}
+    }
   },
   "browserslist": [
     "> 1%",

@@ -99,6 +99,7 @@
           @compositionend="handleCompositionEnd"
           @input="handleInput"
           @click="closeAllDialog"
+          style="font-size:16px;"
         ></textarea>
       </div>
       <div v-if="readonly || preview" v-html="contentHtml" :class="{'marked':true, 'right': preview, 'right-all': readonly}" @click="closeAllDialog($event)"></div>
@@ -109,11 +110,36 @@
 </template>
 <script>
 // marked.min.js
-import { marked } from "marked/marked.min.js";
+import marked from "./js/marked.js";
 import { isKorean } from "./js/shared";
 import { txtareaSelectionStart } from "./js/mouce";
 import { getIcon } from "./js/icon.js"
 import preview from './preview.vue'
+let rendererMD = new marked.Renderer();
+marked.setOptions({
+    renderer: rendererMD,
+    // gfm: true,
+    // tables: true,
+    // breaks: false,
+    // pedantic: false,
+    // sanitize: false,
+    // smartLists: true,
+    // smartypants: false
+      // 默认：true， 启用Github的风格
+      gfm: true,
+      // 默认：true，启动表格， 前提必须gfm: true,
+      tables: true,
+      // 默认：false，启用回车换行，前提必须gfm: true,
+      breaks: true,
+      // 默认：false，尽可能地兼容 markdown.pl的晦涩部分。不纠正原始模型任何的不良行为和错误。
+      pedantic: false,
+      // 默认：false，对输出进行过滤(清理)，将忽略任何已经输入的html代码(标签)
+      sanitize: false,
+      // 默认：true，使用比原生markdown更时髦的列表。 旧的列表将可能被作为pedantic的处理内容过滤掉
+      smartLists: true,
+      // 默认：false，使用更为时髦的标点，比如在引用语法中加入破折号。
+      smartypants: true
+});
 export default {
   name: "MarkDown",
   componentName: "MarkDown",
@@ -195,15 +221,9 @@ export default {
       asd = asd.replace(/::: hljs-center/g, '<div style="text-align:center">')
       asd = asd.replace(/:::/g, '</div>')
       // 处理删除线
-      this.rendererMD.del = function(text) {
-        if(asd) {
-          if(asd.indexOf('~~' + text) >-1) {
-            return `<del>${text}</del>`
-          } else {
-            return `<span> ~ ${text} ~ </span>`
-          }
-        }
-      }
+      // this.rendererMD.del = function(text) {
+      //   return `<span> ~ ${text} ~ </span>`
+      // }
       this.contentHtml = marked(asd);
 
       // textarea自适应高度
@@ -253,24 +273,10 @@ export default {
     }
   },
   mounted() {
-    this.rendererMD = new marked.Renderer()
-    marked.setOptions({
-      renderer: this.rendererMD,
-      // 默认：true， 启用Github的风格
-      gfm: true,
-      // 默认：true，启动表格， 前提必须gfm: true,
-      tables: true,
-      // 默认：false，启用回车换行，前提必须gfm: true,
-      breaks: true,
-      // 默认：false，尽可能地兼容 markdown.pl的晦涩部分。不纠正原始模型任何的不良行为和错误。
-      pedantic: false,
-      // 默认：false，对输出进行过滤(清理)，将忽略任何已经输入的html代码(标签)
-      sanitize: false,
-      // 默认：true，使用比原生markdown更时髦的列表。 旧的列表将可能被作为pedantic的处理内容过滤掉
-      smartLists: true,
-      // 默认：false，使用更为时髦的标点，比如在引用语法中加入破折号。
-      smartypants: true
-    });
+    // this.rendererMD = new marked.Renderer()
+    // marked.setOptions({
+    //   renderer: this.rendererMD,
+    // });
     // const rendererMD = new marked.Renderer()
     // this.rendererMD.image = function(href, title, text) {
     //   console.log(href, title, text)
