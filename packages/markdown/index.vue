@@ -605,7 +605,7 @@ export default {
         width:330px;
         height:140px;
         position: absolute;
-        top:30px;
+        top:40px;
         left:0px;
         background: #ffffff;
         box-shadow: 0 2px 4px rgba(0, 0, 0, .12);
@@ -620,6 +620,7 @@ export default {
           flex-wrap: wrap;
           font-size:14px;
           margin-bottom: 10px;
+          line-height:20px !important;
         }
         .aaa-02{
           width:100%;
@@ -628,6 +629,7 @@ export default {
           align-items: center;
           padding-top:10px;
           padding-bottom: 10px;
+          line-height:20px !important;
           button{
             cursor: pointer;
             font-size:14px;

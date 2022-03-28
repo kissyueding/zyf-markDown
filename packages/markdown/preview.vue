@@ -60,7 +60,7 @@ export default {
 .image-viewer__wrapper{
     width:100%;
     height:100%;
-    position: absolute;
+    position: fixed;
     background: rgba(0,0,0,0.7);
     top:0px;
     left:0px;
