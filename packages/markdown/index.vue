@@ -7,18 +7,6 @@
       <p @click="fontWeightFunction('italic')" class="a-01" v-if="toolbarsValue.italic">
         <img :src="iconItalic" alt="倾斜" />
       </p>
-      <div class="a-02" v-if="toolbarsValue.useH">
-        <p class="a-01 aa-01" @click="getOpnHeaderLi">
-          <img :src="iconUseH" alt="主题" />
-        </p>
-        <div class="aa-02" v-if="showHeaderLi">
-          <template v-for="(item, index) in headerList">
-            <p :key="`aaa${index}`" class="aa-03" @click="fontWeightFunction(item.label)">
-              {{ item.label }}
-            </p>
-          </template>
-        </div>
-      </div>
       <div class="a-03" v-if="toolbarsValue.table">
         <p class="a-01 aa-01" @click="getOpnTable">
           <img :src="iconTable" alt="table" />
@@ -42,6 +30,37 @@
           </div>
         </div>
       </div>
+      <p @click="fontWeightFunction('H1')" class="a-01" v-if="toolbarsValue.useH">
+        <span style="font-size:18px;">H1</span>
+      </p>
+      <p @click="fontWeightFunction('H2')" class="a-01" v-if="toolbarsValue.useH">
+        <span style="font-size:18px;">H2</span>
+      </p>
+      <p @click="fontWeightFunction('H3')" class="a-01" v-if="toolbarsValue.useH">
+        <span style="font-size:18px;">H3</span>
+      </p>
+      <p @click="fontWeightFunction('H4')" class="a-01" v-if="toolbarsValue.useH">
+        <span style="font-size:18px;">H4</span>
+      </p>
+      <p @click="fontWeightFunction('H5')" class="a-01" v-if="toolbarsValue.useH">
+        <span style="font-size:18px;">H5</span>
+      </p>
+      <p @click="fontWeightFunction('H6')" class="a-01" v-if="toolbarsValue.useH">
+        <span style="font-size:18px;">H6</span>
+      </p>
+      <!-- <div class="a-02" v-if="toolbarsValue.useH">
+        <p class="a-01 aa-01" @click="getOpnHeaderLi">
+          <img :src="iconUseH" alt="主题" />
+        </p>
+        <div class="aa-02" v-if="showHeaderLi">
+          <template v-for="(item, index) in headerList">
+            <p :key="`aaa${index}`" class="aa-03" @click="fontWeightFunction(item.label)">
+              {{ item.label }}
+            </p>
+          </template>
+        </div>
+      </div> -->
+      
       <div class="a-04" v-if="toolbarsValue.alignleft || toolbarsValue.aligncenter || toolbarsValue.alignright">
         <p @click="fontWeightFunction('alignleft')" class="a-01" v-if="toolbarsValue.alignleft">
           <img :src="iconAlignleft" alt="居左" />
@@ -118,13 +137,6 @@ import preview from './preview.vue'
 let rendererMD = new marked.Renderer();
 marked.setOptions({
     renderer: rendererMD,
-    // gfm: true,
-    // tables: true,
-    // breaks: false,
-    // pedantic: false,
-    // sanitize: false,
-    // smartLists: true,
-    // smartypants: false
       // 默认：true， 启用Github的风格
       gfm: true,
       // 默认：true，启动表格， 前提必须gfm: true,
@@ -273,20 +285,6 @@ export default {
     }
   },
   mounted() {
-    // this.rendererMD = new marked.Renderer()
-    // marked.setOptions({
-    //   renderer: this.rendererMD,
-    // });
-    // const rendererMD = new marked.Renderer()
-    // this.rendererMD.image = function(href, title, text) {
-    //   console.log(href, title, text)
-    //   return `<img οnclick="showMarkedImage(event, '${href}')" src="${href}" alt="${text}" title="${
-    //     title ? title : ''
-    //   }">`
-    // }
-    // this.rendererMD.del = function(text) {
-    //   return `<span> ~ ${text} ~ </span>`
-    // }
     this.contentHtml = marked(this.value)
     this.setNativeInputValue();
   },
@@ -559,6 +557,7 @@ export default {
       width: 30px;
       height: 30px;
       position: relative;
+      line-height: 30px !important;
       .aa-01{
         width:30px;
         height:30px;
@@ -594,6 +593,9 @@ export default {
       height: 30px;
       position: relative;
       z-index:10000;
+      border-right:solid 2px #ccc; 
+      margin-right:10px;
+      padding-right:10px;
       .aa-01{
         width:30px;
         height:30px;
