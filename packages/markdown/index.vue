@@ -31,22 +31,22 @@
         </div>
       </div>
       <p @click="fontWeightFunction('H1')" class="a-01" v-if="toolbarsValue.useH">
-        <span style="font-size:18px;">H1</span>
+        <span style="font-size:18px;color:#626364">H1</span>
       </p>
       <p @click="fontWeightFunction('H2')" class="a-01" v-if="toolbarsValue.useH">
-        <span style="font-size:18px;">H2</span>
+        <span style="font-size:18px;color:#626364">H2</span>
       </p>
       <p @click="fontWeightFunction('H3')" class="a-01" v-if="toolbarsValue.useH">
-        <span style="font-size:18px;">H3</span>
+        <span style="font-size:18px;color:#626364">H3</span>
       </p>
       <p @click="fontWeightFunction('H4')" class="a-01" v-if="toolbarsValue.useH">
-        <span style="font-size:18px;">H4</span>
+        <span style="font-size:18px;color:#626364">H4</span>
       </p>
       <p @click="fontWeightFunction('H5')" class="a-01" v-if="toolbarsValue.useH">
-        <span style="font-size:18px;">H5</span>
+        <span style="font-size:18px;color:#626364">H5</span>
       </p>
       <p @click="fontWeightFunction('H6')" class="a-01" v-if="toolbarsValue.useH">
-        <span style="font-size:18px;">H6</span>
+        <span style="font-size:18px;color:#626364">H6</span>
       </p>
       <!-- <div class="a-02" v-if="toolbarsValue.useH">
         <p class="a-01 aa-01" @click="getOpnHeaderLi">
@@ -596,6 +596,7 @@ export default {
       border-right:solid 2px #ccc; 
       margin-right:10px;
       padding-right:10px;
+      box-sizing: initial;
       .aa-01{
         width:30px;
         height:30px;
@@ -899,6 +900,9 @@ body{
 }
 .marked > p > a {
   color: #0f6bc7;
+}
+.marked > p {
+  line-height: 24px;
 }
 .marked > blockquote {
   padding: 10px 15px;
