@@ -783,7 +783,10 @@ export default {
 </style>
 <style type="text/css" rel="stylesheet/css">
 html,
-body,
+body{
+  margin: 0;
+  width: 100%;
+}
 #editor {
   margin: 0;
   height: auto;
