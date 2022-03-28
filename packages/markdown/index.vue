@@ -32,9 +32,9 @@
           <div class="aaa-01">
             <span>对齐：</span>
             <input type="radio" ref="radioamr" name="radioa" value="mr" checked>默认<br>
-            <input type="radio" ref="radioaleft" name="radioa" value="left">左对齐<br>
-            <input type="radio" ref="radioacenter" name="radioa" value="center">居中<br>
-            <input type="radio" ref="radioaright" name="radioa" value="right">右对齐<br>
+            <input type="radio" ref="radioaleft" name="radioa" value="left" style="margin-left:10px;">左对齐<br>
+            <input type="radio" ref="radioacenter" name="radioa" value="center" style="margin-left:10px;">居中<br>
+            <input type="radio" ref="radioaright" name="radioa" value="right" style="margin-left:10px;">右对齐<br>
           </div>
           <div class="aaa-02">
             <button @click="submitTable">确定</button>
@@ -179,7 +179,8 @@ export default {
       imageName: '',
       imageUrl: '',
       showImage: false,
-      isShowPreview: false
+      isShowPreview: false,
+      rendererMD: ''
     }
   },
   watch:{
@@ -193,14 +194,16 @@ export default {
       asd = asd.replace(/::: hljs-right/g, '<div style="text-align:right">')
       asd = asd.replace(/::: hljs-center/g, '<div style="text-align:center">')
       asd = asd.replace(/:::/g, '</div>')
-      // 处理图片
-      // const rendererMD = new marked.Renderer()
-      // rendererMD.image = function(href, title, text) {
-      //   console.log(href, title, text)
-      //   return `<img οnclick="showMarkedImage(event, '${href}')" src="${href}" alt="${text}" title="${
-      //     title ? title : ''
-      //   }">`
-      // }
+      // 处理删除线
+      this.rendererMD.del = function(text) {
+        if(asd) {
+          if(asd.indexOf('~~' + text) >-1) {
+            return `<del>${text}</del>`
+          } else {
+            return `<span> ~ ${text} ~ </span>`
+          }
+        }
+      }
       this.contentHtml = marked(asd);
 
       // textarea自适应高度
@@ -250,8 +253,9 @@ export default {
     }
   },
   mounted() {
+    this.rendererMD = new marked.Renderer()
     marked.setOptions({
-      renderer: new marked.Renderer(),
+      renderer: this.rendererMD,
       // 默认：true， 启用Github的风格
       gfm: true,
       // 默认：true，启动表格， 前提必须gfm: true,
@@ -265,14 +269,17 @@ export default {
       // 默认：true，使用比原生markdown更时髦的列表。 旧的列表将可能被作为pedantic的处理内容过滤掉
       smartLists: true,
       // 默认：false，使用更为时髦的标点，比如在引用语法中加入破折号。
-      smartypants: false
+      smartypants: true
     });
     // const rendererMD = new marked.Renderer()
-    // rendererMD.image = function(href, title, text) {
+    // this.rendererMD.image = function(href, title, text) {
     //   console.log(href, title, text)
     //   return `<img οnclick="showMarkedImage(event, '${href}')" src="${href}" alt="${text}" title="${
     //     title ? title : ''
     //   }">`
+    // }
+    // this.rendererMD.del = function(text) {
+    //   return `<span> ~ ${text} ~ </span>`
     // }
     this.contentHtml = marked(this.value)
     this.setNativeInputValue();
@@ -325,6 +332,9 @@ export default {
     markeds(val) {
       return val;
     },
+  },
+  destroyed() {
+    this.rendererMD = null
   },
   methods: {
     closeAllDialog(e) {
@@ -586,8 +596,8 @@ export default {
         left:0px;
       }
       .aa-02{
-        width:320px;
-        height:130px;
+        width:330px;
+        height:140px;
         position: absolute;
         top:30px;
         left:0px;
@@ -614,6 +624,8 @@ export default {
           padding-bottom: 10px;
           button{
             cursor: pointer;
+            font-size:14px;
+            height:26px;
           }
           button:nth-of-type(1){
              background: #409EFF;
@@ -621,7 +633,6 @@ export default {
              border-radius: 13px;
              border: solid 1px #409EFF;
              width:60px;
-             height:26px;
              margin-right:10px;
           }
           button:nth-of-type(2){
@@ -630,7 +641,6 @@ export default {
              border-radius: 13px;
              border: solid 1px #409EFF;
              width:60px;
-             height:26px;
           }
           button:active{
             transform:scale(0.97);
@@ -716,6 +726,7 @@ export default {
         button{
             cursor: pointer;
             margin-top:5px;
+            font-size:14px;
           }
           button:nth-of-type(1){
              background: #409EFF;
@@ -758,7 +769,7 @@ export default {
       }
     }
     .left-all{
-      width:100%;
+      width:100% !important;
       background: #f1f1f1;
       textarea{
         width:100%;
@@ -767,7 +778,8 @@ export default {
       }
     }
     .right-all{
-      width:100%;
+      width:100% !important;
+      padding: 0px !important;
     }
     .right{
       width:50%;
@@ -853,12 +865,12 @@ body{
 .marked > table thead th {
   border: 1px solid #dddddd;
   height: 30px;
-  padding: 0 10px;
+  padding: 10px 10px;
 }
 .marked > table tbody td {
   height: 30px;
   border: 1px solid #dddddd;
-  padding: 0 10px;
+  padding: 10px 10px;
   word-break:break-all;
 }
 .marked > table tbody tr:hover {
