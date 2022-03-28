@@ -106,6 +106,21 @@ export function txtareaSelectionStart(dom, method, th, td, styles, imgUrl, imgDe
     const link = function() {
         return '\n[链接描述：示例-百度](https://www.baidu.com)\n'
     }
+    const del = function(value) {
+        return value ? '\n~~' +  value + '~~\n' : '\n~~删除线~~\n'
+    }
+    const quote = function(value) {
+        return value ? '\n> ' +  value + '\n' : '\n> 段落引用\n'
+    }
+    const ol = function(value) {
+        return value ? '\n1. ' +  value + '\n' : '\n1. 有序列表\n'
+    }
+    const ul = function(value) {
+        return value ? '\n- ' +  value + '\n' : '\n- 无序列表\n'
+    }
+    const strikethrough = function(value) {
+        return value ? '\n------------\n' +  value + '\n' : '\n------------\n'
+    }
     // 获取返回的值
     switch(method) {
         case 'bold':
@@ -152,6 +167,21 @@ export function txtareaSelectionStart(dom, method, th, td, styles, imgUrl, imgDe
             break;
         case 'imgAdd':
             vas = '\n![' + imgDesc + '](' + imgUrl + ')\n'
+            break;
+        case 'del':
+            vas = del(sel)
+            break;
+        case 'quote':
+            vas = quote(sel)
+            break;
+        case 'ol':
+            vas = ol(sel)
+            break;
+        case 'ul':
+            vas = ul(sel)
+            break;
+        case 'strikethrough':
+            vas = strikethrough(sel)
             break;
     }
     //构造新文本

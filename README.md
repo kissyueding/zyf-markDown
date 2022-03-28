@@ -53,7 +53,13 @@ export default {
                 aligncenter: true, // 居中
                 alignright: true, // 居右
                 code: true, // 代码
-                link: true // 链接
+                link: true, // 链接
+                img: true, // 图片
+                del: true, // 删除线
+                quote: true, // 引用
+                strikethrough: true, // 横线
+                ol: true, // 有序列表
+                ul: true, // 无序列表
             }
         }
     },
@@ -137,3 +143,8 @@ uploadImage(e) {
 |code|Bollean|true|代码|
 |link|Bollean|true|链接|
 |img|Bollean|true|图片上传|
+|del|Bollean|true|删除线|
+|quote|Bollean|true|引用|
+|strikethrough|Bollean|true|横线|
+|ol|Bollean|true|无序列表|
+|ul|Bollean|true|有序列表|

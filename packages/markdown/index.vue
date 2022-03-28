@@ -7,7 +7,13 @@
       <p @click="fontWeightFunction('italic')" class="a-01" v-if="toolbarsValue.italic">
         <img :src="iconItalic" alt="倾斜" />
       </p>
-      <div class="a-03" v-if="toolbarsValue.table">
+      <p @click="fontWeightFunction('del')" class="a-01" v-if="toolbarsValue.del">
+        <img :src="iconDel" alt="删除线" />
+      </p>
+      <p @click="fontWeightFunction('quote')" class="a-01" v-if="toolbarsValue.quote">
+        <img :src="iconQuote" alt="引用" />
+      </p>
+      <div class="a-03" v-if="toolbarsValue.table" style="z-index:1000">
         <p class="a-01 aa-01" @click="getOpnTable">
           <img :src="iconTable" alt="table" />
         </p>
@@ -92,8 +98,8 @@
            <img :src="iconImage" alt="上传图片" />
         </p>
         <div v-if="!useImagUrl && showImage" class="a-02">
-           <p @click="addImageUrl()">新增图片链接</p>
-           <p @click="uploadImage()">上传图片</p>
+           <p @click="addImageUrl()" style="line-height:20px !important">新增图片链接</p>
+           <p @click="uploadImage()" style="line-height:20px !important">上传图片</p>
         </div>
         <div v-if="useImagUrl && showImage" class="a-03">
           <input placeholder="图片名称或描述" v-model="imageName" maxlength="200">
@@ -103,6 +109,17 @@
             <button @click="closeImgUrl">取消</button>
           </div>
         </div>
+      </div>
+      <div class="a-04" v-if="toolbarsValue.ol || toolbarsValue.ul || toolbarsValue.strikethrough">
+        <p @click="fontWeightFunction('ol')" class="a-01" v-if="toolbarsValue.ol">
+          <img :src="iconOl" alt="有序列表" />
+        </p>
+        <p @click="fontWeightFunction('ul')" class="a-01" v-if="toolbarsValue.ul">
+          <img :src="iconUl" alt="无序列表" />
+        </p>
+        <p @click="fontWeightFunction('strikethrough')" class="a-01" v-if="toolbarsValue.strikethrough">
+          <img :src="iconStrikethrough" alt="横线" />
+        </p>
       </div>
     </div>
     <div id="editor">
@@ -203,7 +220,12 @@ export default {
         alignright: this.toolbars.alignright ? this.toolbars.alignright : true, // 居右
         code: this.toolbars.code ? this.toolbars.code : true, // 代码块
         link: this.toolbars.link ? this.toolbars.link : true, // 链接
-        img: this.toolbars.img ? this.toolbars.img : true // 启用图片
+        img: this.toolbars.img ? this.toolbars.img : true, // 启用图片
+        del: this.toolbars.del ? this.toolbars.del : true, // 启用删除线
+        quote: this.toolbars.quote ? this.toolbars.quote : true, // 启用引用
+        strikethrough: this.toolbars.strikethrough ? this.toolbars.strikethrough : true, // 启用横线
+        ol: this.toolbars.ol ? this.toolbars.ol : true, // 启用有序列表
+        ul: this.toolbars.ul ? this.toolbars.ul : true, // 启用无序列表
       },
       preview: true,
       /** table */
@@ -217,8 +239,7 @@ export default {
       imageName: '',
       imageUrl: '',
       showImage: false,
-      isShowPreview: false,
-      rendererMD: ''
+      isShowPreview: false
     }
   },
   watch:{
@@ -233,9 +254,6 @@ export default {
       asd = asd.replace(/::: hljs-center/g, '<div style="text-align:center">')
       asd = asd.replace(/:::/g, '</div>')
       // 处理删除线
-      // this.rendererMD.del = function(text) {
-      //   return `<span> ~ ${text} ~ </span>`
-      // }
       this.contentHtml = marked(asd);
 
       // textarea自适应高度
@@ -243,7 +261,25 @@ export default {
     },
     toolbars: {
       handler(val) {
-        this.toolbarsValue = { ...val }
+        this.toolbarsValue = {
+          preview: val.preview ? val.preview : true,
+          tabBar: val.tabBar ? val.tabBar : true,
+          bold: val.bold ? val.bold : true, // 加粗
+          italic: val.italic ? val.italic : true, // 倾斜
+          useH: val.useH ? val.useH : true, // 使用标题
+          table: val.table ? val.table : true, // 表格
+          alignleft: val.alignleft ? val.alignleft : true, // 居左
+          aligncenter: val.aligncenter ? val.aligncenter : true, // 居中
+          alignright: val.alignright ? val.alignright : true, // 居右
+          code: val.code ? val.code : true, // 代码块
+          link: val.link ? val.link : true, // 链接
+          img: val.img ? val.img : true, // 启用图片
+          del: val.del ? val.del : true, // 启用删除线
+          quote: val.quote ? val.quote : true, // 启用引用
+          strikethrough: val.strikethrough ? val.strikethrough : true, // 启用横线
+          ol: val.ol ? val.ol : true, // 启用有序列表
+          ul: val.ul ? val.ul : true, // 启用无序列表
+        }
       },
       deep: true,
       immediate: true
@@ -279,7 +315,12 @@ export default {
           alignright: true, // 居右
           code: true, // 代码块
           link: true, // 链接
-          img: true // 启用图片
+          img: true, // 启用图片
+          del: true, // 启用删除线
+          quote: true, // 启用引用
+          strikethrough: true, // 横线
+          ol: true, // 有序列表
+          ul: true, // 无序列表
         }
       },
     }
@@ -330,15 +371,27 @@ export default {
     },
     iconImage() {
       return getIcon('icon_image')
+    },
+    iconDel() {
+      return getIcon('icon_del')
+    },
+    iconQuote() {
+      return getIcon('icon_quote')
+    },
+    iconUl() {
+      return getIcon('icon_ul')
+    },
+    iconOl() {
+      return getIcon('icon_ol')
+    },
+    iconStrikethrough() {
+      return getIcon('icon_strikethrough')
     }
   },
   filters: {
     markeds(val) {
       return val;
     },
-  },
-  destroyed() {
-    this.rendererMD = null
   },
   methods: {
     closeAllDialog(e) {
@@ -679,7 +732,7 @@ export default {
       width: 30px;
       height: 30px;
       position: relative;
-      z-index:10000;
+      z-index:100;
       .a-01{
         width:30px;
         height:30px;

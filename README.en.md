@@ -43,17 +43,23 @@ export default {
         return {
             content: '',
             toolbars: {
-                tabBar: true,
-                preview: true,
-                bold: true,
-                italic: true,
-                useH: true,
-                table: true,
-                alignleft: true,
-                aligncenter: true,
-                alignright: true,
-                code: true,
-                link: true
+                tabBar: true, // 启用操作栏
+                preview: true, // 开启预览
+                bold: true, // 加粗
+                italic: true, // 倾斜
+                useH: true, // 使用标题
+                table: true, // 表格
+                alignleft: true, // 居左
+                aligncenter: true, // 居中
+                alignright: true, // 居右
+                code: true, // 代码
+                link: true, // 链接
+                img: true, // 图片
+                del: true, // 删除线
+                quote: true, // 引用
+                strikethrough: true, // 横线
+                ol: true, // 有序列表
+                ul: true, // 无序列表
             }
         }
     },
@@ -137,3 +143,8 @@ uploadImage(e) {
 |code|Bollean|true|code|
 |link|Bollean|true|link|
 |img|Bollean|true|image|
+|del|Bollean|true|del|
+|quote|Bollean|true|quote|
+|strikethrough|Bollean|true|strikethrough|
+|ol|Bollean|true|ol|
+|ul|Bollean|true|ul|
