@@ -209,23 +209,23 @@ export default {
       ],
       showHeaderLi: false,
       toolbarsValue: {
-        preview: this.toolbars.preview ? this.toolbars.preview : true,
-        tabBar: this.toolbars.tabBar ? this.toolbars.tabBar : true,
-        bold: this.toolbars.bold ? this.toolbars.bold : true, // 加粗
-        italic: this.toolbars.italic ? this.toolbars.italic : true, // 倾斜
-        useH: this.toolbars.useH ? this.toolbars.useH : true, // 使用标题
-        table: this.toolbars.table ? this.toolbars.table : true, // 表格
-        alignleft: this.toolbars.alignleft ? this.toolbars.alignleft : true, // 居左
-        aligncenter: this.toolbars.aligncenter ? this.toolbars.aligncenter : true, // 居中
-        alignright: this.toolbars.alignright ? this.toolbars.alignright : true, // 居右
-        code: this.toolbars.code ? this.toolbars.code : true, // 代码块
-        link: this.toolbars.link ? this.toolbars.link : true, // 链接
-        img: this.toolbars.img ? this.toolbars.img : true, // 启用图片
-        del: this.toolbars.del ? this.toolbars.del : true, // 启用删除线
-        quote: this.toolbars.quote ? this.toolbars.quote : true, // 启用引用
-        strikethrough: this.toolbars.strikethrough ? this.toolbars.strikethrough : true, // 启用横线
-        ol: this.toolbars.ol ? this.toolbars.ol : true, // 启用有序列表
-        ul: this.toolbars.ul ? this.toolbars.ul : true, // 启用无序列表
+        preview: this.toolbars.preview,
+        tabBar: this.toolbars.tabBar,
+        bold: this.toolbars.bold, // 加粗
+        italic: this.toolbars.italic, // 倾斜
+        useH: this.toolbars.useH, // 使用标题
+        table: this.toolbars.table, // 表格
+        alignleft: this.toolbars.alignleft, // 居左
+        aligncenter: this.toolbars.aligncenter, // 居中
+        alignright: this.toolbars.alignright, // 居右
+        code: this.toolbars.code, // 代码块
+        link: this.toolbars.link, // 链接
+        img: this.toolbars.img, // 启用图片
+        del: this.toolbars.del, // 启用删除线
+        quote: this.toolbars.quote, // 启用引用
+        strikethrough: this.toolbars.strikethrough, // 启用横线
+        ol: this.toolbars.ol, // 启用有序列表
+        ul: this.toolbars.ul, // 启用无序列表
       },
       preview: true,
       /** table */
@@ -262,23 +262,23 @@ export default {
     toolbars: {
       handler(val) {
         this.toolbarsValue = {
-          preview: val.preview ? val.preview : true,
-          tabBar: val.tabBar ? val.tabBar : true,
-          bold: val.bold ? val.bold : true, // 加粗
-          italic: val.italic ? val.italic : true, // 倾斜
-          useH: val.useH ? val.useH : true, // 使用标题
-          table: val.table ? val.table : true, // 表格
-          alignleft: val.alignleft ? val.alignleft : true, // 居左
-          aligncenter: val.aligncenter ? val.aligncenter : true, // 居中
-          alignright: val.alignright ? val.alignright : true, // 居右
-          code: val.code ? val.code : true, // 代码块
-          link: val.link ? val.link : true, // 链接
-          img: val.img ? val.img : true, // 启用图片
-          del: val.del ? val.del : true, // 启用删除线
-          quote: val.quote ? val.quote : true, // 启用引用
-          strikethrough: val.strikethrough ? val.strikethrough : true, // 启用横线
-          ol: val.ol ? val.ol : true, // 启用有序列表
-          ul: val.ul ? val.ul : true, // 启用无序列表
+          preview: val.preview,
+          tabBar: val.tabBar,
+          bold: val.bold, // 加粗
+          italic: val.italic, // 倾斜
+          useH: val.useH, // 使用标题
+          table: val.table, // 表格
+          alignleft: val.alignleft, // 居左
+          aligncenter: val.aligncenter, // 居中
+          alignright: val.alignright, // 居右
+          code: val.code, // 代码块
+          link: val.link, // 链接
+          img: val.img, // 启用图片
+          del: val.del, // 启用删除线
+          quote: val.quote, // 启用引用
+          strikethrough: val.strikethrough, // 启用横线
+          ol: val.ol, // 启用有序列表
+          ul: val.ul, // 启用无序列表
         }
       },
       deep: true,
@@ -869,7 +869,6 @@ h1, h2, h3, h4, h5, h6{
 #editor {
   margin: 0;
   height: auto;
-  font-family: "Helvetica Neue", Arial, sans-serif;
   color: #333;
   width: 100%;
   
@@ -894,7 +893,6 @@ h1, h2, h3, h4, h5, h6{
   outline: none;
   background-color: #f6f6f6;
   font-size: 14px;
-  font-family: "Monaco", courier, monospace;
   padding: 20px;
 }
 .marked > p > code {
@@ -933,12 +931,13 @@ h1, h2, h3, h4, h5, h6{
   border: 1px solid #dddddd;
   height: 30px;
   padding: 10px 10px;
+  word-break: break-all;
 }
 .marked > table tbody td {
   height: 30px;
   border: 1px solid #dddddd;
   padding: 10px 10px;
-  word-break:break-all;
+  word-break: break-all;
 }
 .marked > table tbody tr:hover {
   background: #f5f5f5;
