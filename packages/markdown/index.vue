@@ -51,9 +51,9 @@
       <p @click="fontWeightFunction('H5')" class="a-01" v-if="toolbarsValue.useH">
         <span style="font-size:18px;color:#626364">H5</span>
       </p>
-      <p @click="fontWeightFunction('H6')" class="a-01" v-if="toolbarsValue.useH">
+      <!-- <p @click="fontWeightFunction('H6')" class="a-01" v-if="toolbarsValue.useH">
         <span style="font-size:18px;color:#626364">H6</span>
-      </p>
+      </p> -->
       <!-- <div class="a-02" v-if="toolbarsValue.useH">
         <p class="a-01 aa-01" @click="getOpnHeaderLi">
           <img :src="iconUseH" alt="主题" />
@@ -201,10 +201,6 @@ export default {
         {
           label: 'H5',
           value: '5'
-        },
-        {
-          label: 'H6',
-          value: '6'
         }
       ],
       showHeaderLi: false,
@@ -333,7 +329,6 @@ export default {
     asd = asd.replace(/::: hljs-center/g, '<div style="text-align:center">')
     asd = asd.replace(/:::/g, '</div>')
     this.contentHtml = marked(asd)
-    console.log(asd)
     this.setNativeInputValue();
   },
   computed: {
