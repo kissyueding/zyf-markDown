@@ -326,7 +326,14 @@ export default {
     }
   },
   mounted() {
-    this.contentHtml = marked(this.value)
+    let asd = JSON.parse(JSON.stringify(this.value))
+    // 处理居中，居左，居右
+    asd = asd.replace(/::: hljs-left/g, '<div style="text-align:left">')
+    asd = asd.replace(/::: hljs-right/g, '<div style="text-align:right">')
+    asd = asd.replace(/::: hljs-center/g, '<div style="text-align:center">')
+    asd = asd.replace(/:::/g, '</div>')
+    this.contentHtml = marked(asd)
+    console.log(asd)
     this.setNativeInputValue();
   },
   computed: {
