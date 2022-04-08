@@ -253,7 +253,7 @@ export default {
       this.contentHtml = marked(asd);
 
       // textarea自适应高度
-      if(!this.readonly) {
+      if(!this.readonly || this.disabled) {
         this.resizeHeight()
       }
     },
