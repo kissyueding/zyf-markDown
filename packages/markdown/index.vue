@@ -253,7 +253,9 @@ export default {
       this.contentHtml = marked(asd);
 
       // textarea自适应高度
-      this.resizeHeight()
+      if(!this.readonly) {
+        this.resizeHeight()
+      }
     },
     toolbars: {
       handler(val) {

@@ -1,6 +1,6 @@
 {
   "name": "zyf-markdown",
-  "version": "1.4.9",
+  "version": "1.5.0",
   "description": "简单的markdown工具，不支持vue3，兼容IE",
   "private": false,
   "scripts": {

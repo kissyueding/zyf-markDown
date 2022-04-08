@@ -1,6 +1,6 @@
 <template>
     <div ref="image-viewer__wrapper" class="image-viewer__wrapper" @click="close">
-      <div class="image-viewer__canvas" @click="close">
+      <div class="image-viewer__canvas" @click.stop="close">
           <img
             ref="img"
             class="image-viewer__img"
