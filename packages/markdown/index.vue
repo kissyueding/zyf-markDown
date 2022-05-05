@@ -253,9 +253,7 @@ export default {
       this.contentHtml = marked(asd);
 
       // textarea自适应高度
-      if(!this.readonly || !this.disabled) {
-        this.resizeHeight()
-      }
+      this.resizeHeight()
     },
     toolbars: {
       handler(val) {
@@ -449,15 +447,19 @@ export default {
     },
     resizeHeight () {
       let _this = this
-      this.$nextTick(() => {
-        var textArea = _this.$refs.textarea
-        var scrollHeight = textArea.scrollHeight // 控件所有的高度，包含滚动的那部分(不可见也会有高度)
-        var height = textArea.offsetHeight // 屏幕上显示的高度
-        if (height <= scrollHeight) {
-          textArea.style.height = 'auto' // 恢复默认值，这个作用就是根据内容自适应textarea高度
-          textArea.style.height = textArea.scrollHeight + 'px' // 拿到最新的高度改变textarea的高度
-        }
-      })
+      if(!this.readonly || !this.disabled) {
+        this.$nextTick(() => {
+          var textArea = _this.$refs.textarea
+          if(textArea) {
+            var scrollHeight = textArea.scrollHeight // 控件所有的高度，包含滚动的那部分(不可见也会有高度)
+            var height = textArea.offsetHeight // 屏幕上显示的高度
+            if (height <= scrollHeight) {
+              textArea.style.height = 'auto' // 恢复默认值，这个作用就是根据内容自适应textarea高度
+              textArea.style.height = textArea.scrollHeight + 'px' // 拿到最新的高度改变textarea的高度
+            }
+          }
+        })
+      }
     },
     /** tab */
     fontWeightFunction(method) {

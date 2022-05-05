@@ -1,6 +1,6 @@
 {
   "name": "zyf-markdown",
-  "version": "1.5.0",
+  "version": "1.5.3",
   "description": "简单的markdown工具，不支持vue3，兼容IE",
   "private": false,
   "scripts": {
@@ -18,6 +18,7 @@
     "core-js": "^3.6.5",
     "current-script-polyfill": "^1.0.0",
     "marked": "^4.0.12",
+    "sass": "^1.51.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0"
@@ -32,7 +33,6 @@
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "lint-staged": "^9.5.0",
-    "node-sass": "^4.12.0",
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11"
   },
