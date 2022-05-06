@@ -1,7 +1,8 @@
 # zyf-markdown
 This plug-in is only a simple version of markdown tool and is not compatible with vue3 0 Support custom image upload function and will be continuously optimized.
 ### 仓库地址
-[仓库地址](https://gitee.com/zhangyifen/zyf-mark-down.git)
+[gitee仓库地址](https://gitee.com/zhangyifen/zyf-mark-down.git)
+[github仓库地址](https://github.com/kissyueding/zyf-markDown.git)
 
 ### 示例(demo)
 [demo](https://www.cwgj.xyz/m/markdown)

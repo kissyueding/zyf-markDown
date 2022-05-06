@@ -1,7 +1,8 @@
 # zyf-markdown
 本插件只是简易版markdown工具，暂未兼容vue3.0。支持自定义图片上传功能，也会不断优化。
 ### 仓库地址
-[仓库地址](https://gitee.com/zhangyifen/zyf-mark-down.git)
+[国内仓库地址](https://gitee.com/zhangyifen/zyf-mark-down.git)
+[仓库地址](https://github.com/kissyueding/zyf-markDown.git)
 
 ### 示例
 [demo](https://www.cwgj.xyz/m/markdown)
